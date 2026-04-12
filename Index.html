@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>DFW Trainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080C0F;--card:#0F1419;--card2:#111A22;--border:#1E2A35;
+  --text:#F0F4F8;--muted:#7D8C99;--accent:#FF5722;--gold:#FFC107;--green:#00BFA5;--red:#EF5350;--blue:#2196F3;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100%}
+#app{max-width:480px;margin:0 auto;min-height:100vh;padding:14px 14px 90px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:0 10px 25px rgba(0,0,0,.18)}
+.card + .card{margin-top:14px}
+.label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:8px}
+.h1,.h2,.h3{font-family:'Bebas Neue',sans-serif;line-height:1;margin:0}
+.h1{font-size:50px}.h2{font-size:30px}.h3{font-size:22px}
+.sub{font-size:13px;color:var(--muted);line-height:1.55}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.btn{border:none;border-radius:16px;padding:15px 14px;font-weight:700;font-size:15px;cursor:pointer}
+.btn.primary{background:var(--accent);color:#111}.btn.dark{background:#0A0F12;color:var(--text);border:1px solid var(--border)}
+.btn.gold{background:var(--gold);color:#111}.btn.green{background:var(--green);color:#062018}.btn.red{background:#2A0F12;color:#FF8A80;border:1px solid #4A1E24}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:6px 10px;border-radius:999px;border:1px solid var(--border);font-size:11px;color:var(--muted);font-weight:700}
+.week-row{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid #16212B}.week-row:last-child{border-bottom:none;padding-bottom:0}
+.week-name{font-size:11px;color:var(--muted);letter-spacing:2px;padding-top:5px}.week-days{display:flex;flex-wrap:wrap;gap:8px}
+.day-pill{padding:8px 10px;border-radius:12px;background:#0A0F12;border:1px solid var(--border);font-size:12px;font-weight:700}
+.kpi{padding:14px;border-radius:18px;background:#0B1218;border:1px solid #182632}.kpi .num{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;margin-top:4px}
+.bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(460px,calc(100% - 18px));display:flex;gap:8px;background:rgba(15,20,25,.94);border:1px solid var(--border);border-radius:18px;padding:8px;backdrop-filter:blur(10px)}
+.navbtn{flex:1;border:none;background:#0A0F12;color:var(--muted);border-radius:14px;padding:10px 6px;font-size:11px;font-weight:700;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}.navbtn.active{color:var(--text);outline:1px solid var(--accent)}
+.selector{display:flex;gap:8px;flex-wrap:wrap}.sel{padding:10px 12px;border-radius:12px;background:#0A0F12;border:1px solid var(--border);font-size:13px;font-weight:700;cursor:pointer;color:var(--muted)}.sel.active{border-color:var(--accent);color:var(--text)}
+.ring-wrap{display:flex;justify-content:center;margin:10px 0 16px}.ring-text-big{font-family:'Bebas Neue',sans-serif;font-size:42px}.ring-text-small{font-size:12px;letter-spacing:2px;color:var(--muted)}
+.exercise-card{padding:14px;border-radius:18px;background:#0A0F12;border:1px solid var(--border)}
+.exercise-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.exercise-name{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1}.exercise-meta{font-size:12px;color:var(--muted)}
+.prescription{font-size:15px;font-weight:700;margin-top:4px;color:var(--gold)}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.controls3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.mini{font-size:12px;color:var(--muted)}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px 8px;border-bottom:1px solid #16212B;font-size:13px;text-align:left}.table th{color:var(--muted);font-size:11px;letter-spacing:2px}.table tr:last-child td{border-bottom:none}
+.input{width:100%;background:#0A0F12;border:1px solid var(--border);border-radius:12px;padding:13px 12px;color:var(--text);font-size:15px}
+.note{font-size:12px;line-height:1.6;color:var(--muted)}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.empty{padding:30px 18px;text-align:center;color:var(--muted)}
+.smallbtn{padding:9px 10px;border-radius:10px;background:#0A0F12;color:var(--text);border:1px solid var(--border);font-size:12px;font-weight:700;cursor:pointer}
+.warning{background:#171108;border:1px solid #4B3811;border-radius:16px;padding:14px;color:#F8D67A}
+.success{background:#071814;border:1px solid #0F4D41;border-radius:16px;padding:14px;color:#7DE7D0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const PROGRAM = {
+  1:[
+    {day:1,label:'Day 1',prescription:'Ladder 1-2-3',mode:'ladder',steps:[1,2,3]},
+    {day:2,label:'Day 2',prescription:'Singles',mode:'fixed',steps:[1]},
+    {day:3,label:'Day 3',prescription:'Doubles',mode:'fixed',steps:[2]},
+  ],
+  2:[
+    {day:1,label:'Day 1',prescription:'Ladder 1-2-3',mode:'ladder',steps:[1,2,3]},
+    {day:2,label:'Day 2',prescription:'Singles',mode:'fixed',steps:[1]},
+    {day:3,label:'Day 3',prescription:'Triples',mode:'fixed',steps:[3]},
+  ],
+  3:[
+    {day:1,label:'Day 1',prescription:'Ladder 1-2-3-4',mode:'ladder',steps:[1,2,3,4]},
+    {day:2,label:'Day 2',prescription:'Doubles',mode:'fixed',steps:[2]},
+    {day:3,label:'Day 3',prescription:'Triples',mode:'fixed',steps:[3]},
+  ],
+  4:[
+    {day:1,label:'Day 1',prescription:'Ladder 1-2-3-4-(5)',mode:'ladder',steps:[1,2,3,4,5]},
+    {day:2,label:'Day 2',prescription:'Doubles',mode:'fixed',steps:[2]},
+    {day:3,label:'Day 3',prescription:'Alternate 3 / 4',mode:'alt34',steps:[3,4]},
+  ],
+  5:[
+    {day:1,label:'Day 1',prescription:'3×3 light day',mode:'threebythree',steps:[3,3,3]},
+    {day:2,label:'Day 2',prescription:'Test new rep max',mode:'test',steps:[1]},
+  ]
+};
+
+const state = {
+  tab:'home',
+  week:1,
+  day:1,
+  kbMode:'single',
+  pressRM:'16 kg',
+  usedWeight:'16',
+  durationMin:30,
+  startSide:'dx',
+  currentSide:'dx',
+  sessionPhase:'setup',
+  notes:'',
+  running:false,
+  timer:1800,
+  timerId:null,
+  currentExercise:'cp',
+  setCount:0,
+  squatSets:0,
+  pressSets:0,
+  ladderIndex:0,
+  sessionStartedAt:null,
+  log:JSON.parse(localStorage.getItem('dfw-log-v2')||localStorage.getItem('dfw-log-v1')||'[]')
+};
+
+function save(){
+  localStorage.setItem('dfw-log-v2',JSON.stringify(state.log));
+}
+function getPrescription(){return PROGRAM[state.week].find(x=>x.day===state.day) || PROGRAM[1][0];}
+function fmtTime(s){const m=Math.floor(s/60),r=s%60;return String(m).padStart(2,'0')+':'+String(r).padStart(2,'0');}
+function todayISO(){const d=new Date();return d.toLocaleDateString('it-IT');}
+function ring(total,remaining,color='#FF5722'){
+  const r=72,c=2*Math.PI*r,p=remaining/total,d=c*p;
+  return `<svg width="180" height="180" viewBox="0 0 180 180">
+    <circle cx="90" cy="90" r="72" fill="none" stroke="#1E2A35" stroke-width="10"></circle>
+    <circle cx="90" cy="90" r="72" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
+      stroke-dasharray="${d} ${c}" stroke-dashoffset="${c*0.25}" style="transition:all .3s ease"></circle>
+    <text x="90" y="87" text-anchor="middle" fill="#F0F4F8" font-family="Bebas Neue" font-size="42">${fmtTime(remaining)}</text>
+    <text x="90" y="110" text-anchor="middle" fill="#7D8C99" font-family="DM Sans" font-size="12">${state.durationMin} MIN SESSION</text>
+  </svg>`;
+}
+function getNextRep(){
+  const p=getPrescription();
+  if(p.mode==='ladder') return p.steps[state.ladderIndex % p.steps.length];
+  if(p.mode==='fixed') return p.steps[0];
+  if(p.mode==='alt34') return p.steps[state.ladderIndex % 2];
+  if(p.mode==='threebythree') return p.steps[Math.min(state.ladderIndex,2)] || 3;
+  if(p.mode==='test') return '?';
+  return 1;
+}
+
+function sideLabel(v){ return v==='sx' ? 'SX' : 'DX'; }
+function nextSet(){
+  if(state.currentExercise==='cp'){
+    state.pressSets++;
+    state.setCount++;
+    state.currentExercise='fs';
+  }else{
+    state.squatSets++;
+    state.setCount++;
+    state.currentExercise='cp';
+    state.ladderIndex++;
+    if(state.kbMode==='single'){
+      state.currentSide = state.currentSide==='dx' ? 'sx' : 'dx';
+    }
+  }
+  render();
+}
+function undoSet(){
+  if(state.setCount<=0) return;
+  if(state.currentExercise==='cp'){
+    state.currentExercise='fs';
+    if(state.kbMode==='single'){
+      state.currentSide = state.currentSide==='dx' ? 'sx' : 'dx';
+    }
+  }else{
+    state.currentExercise='cp';
+  }
+  if(state.currentExercise==='cp') {
+    state.pressSets=Math.max(0,state.pressSets-1);
+  } else {
+    state.squatSets=Math.max(0,state.squatSets-1);
+    state.ladderIndex=Math.max(0,state.ladderIndex-1);
+  }
+  state.setCount=Math.max(0,state.setCount-1);
+  render();
+}
+function startTimer(){
+  if(state.running) return;
+  state.sessionPhase='active';
+  state.running=true;
+  if(!state.sessionStartedAt) state.sessionStartedAt=Date.now();
+  state.timerId=setInterval(()=>{
+    if(state.timer>0){ state.timer--; render(); }
+    else { pauseTimer(); render(); }
+  },1000);
+  render();
+}
+function pauseTimer(){ state.running=false; clearInterval(state.timerId); state.timerId=null; render(); }
+function resetSession(){
+  pauseTimer();
+  state.sessionPhase='setup';
+  state.timer=state.durationMin*60;
+  state.currentExercise='cp';
+  state.currentSide=state.startSide;
+  state.setCount=0;
+  state.squatSets=0;
+  state.pressSets=0;
+  state.ladderIndex=0;
+  state.sessionStartedAt=null;
+  state.notes='';
+  render();
+}
+function finishAndSave(testResult=''){
+  const p=getPrescription();
+  const duration = state.sessionStartedAt ? Math.round((Date.now()-state.sessionStartedAt)/60000) : Math.round((state.durationMin*60-state.timer)/60);
+  state.log.unshift({
+    date:todayISO(),
+    week:state.week,
+    day:state.day,
+    prescription:p.prescription,
+    kbMode:state.kbMode,
+    usedWeight:state.usedWeight,
+    durationTarget:state.durationMin,
+    startSide:state.kbMode==='single' ? state.startSide : '',
+    setCount:state.setCount,
+    pressSets:state.pressSets,
+    squatSets:state.squatSets,
+    duration:duration,
+    notes:state.notes,
+    testResult:testResult || ''
+  });
+  save();
+  state.tab='log';
+  resetSession();
+}
+function deleteLog(i){ if(confirm('Eliminare questa sessione?')){ state.log.splice(i,1); save(); render(); } }
+
+function homeView(){
+  const totalSessions=state.log.length;
+  const bestSets=state.log.reduce((m,x)=>Math.max(m,x.setCount||0),0);
+  const last=state.log[0];
+  return `
+    <div class="card" style="padding-top:26px;">
+      <div class="label" style="color:var(--accent)">DRY FIGHTING WEIGHT</div>
+      <h1 class="h1">DFW</h1>
+      <div class="sub" style="margin-top:10px;">App dedicata al programma fedele del link: 5 settimane, 3 giorni a settimana, 20, 25 o 30 minuti, alternanza tra <b>Clean & Press</b> e <b>Front Squat</b>, con supporto anche a <b>1 kettlebell</b>.</div>
+      <div class="chips" style="margin-top:14px;">
+        <div class="chip">5 settimane</div><div class="chip">3 giorni / settimana</div><div class="chip">20 / 25 / 30 min</div><div class="chip">1 o 2 kettlebell</div>
+      </div>
+      <div class="grid2" style="margin-top:14px;">
+        <button class="btn primary" onclick="state.tab='session';render()">▶ Avvia sessione</button>
+        <button class="btn dark" onclick="state.tab='program';render()">📅 Vedi piano</button>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:14px;">
+      <div class="kpi"><div class="label">SESSIONI</div><div class="num">${totalSessions}</div></div>
+      <div class="kpi"><div class="label">BEST SETS</div><div class="num">${bestSets||0}</div></div>
+      <div class="kpi"><div class="label">ULTIMA</div><div class="num" style="font-size:26px">${last?`W${last.week}D${last.day}`:'—'}</div></div>
+    </div>
+
+    <div class="card">
+      <div class="label">COME SI ESEGUE</div>
+      <table class="table">
+        <tr><td>1</td><td>Avvia timer da 30 minuti</td></tr>
+        <tr><td>2</td><td>Fai un set di Clean & Press${state.kbMode==='single'?' sul lato indicato':''}</td></tr>
+        <tr><td>3</td><td>Recupera quanto basta per restare fresco</td></tr>
+        <tr><td>4</td><td>Fai un set di Front Squat${state.kbMode==='single'?' sullo stesso lato':''}</td></tr>
+        <tr><td>5</td><td>Alterna fino allo scadere${state.kbMode==='single'?' e poi cambia lato automaticamente':''}</td></tr>
+        <tr><td>6</td><td>Registra set totali completati</td></tr>
+      </table>
+    </div>
+
+    <div class="warning">
+      <b>Regola chiave:</b> non andare mai a cedimento. Se la velocità cala, riposa. L’obiettivo è accumulare <b>set di qualità</b>, non distruggerti.
+    </div>
+  `;
+}
+
+function programView(){
+  return `
+    <div class="card">
+      <div class="label">PIANO COMPLETO</div>
+      <h2 class="h2">5 settimane</h2>
+      <div class="sub" style="margin-top:8px;">Selezione peso consigliata: coppia con cui hai circa un <b>5RM di press</b>. Se hai campane leggere, tieni l’app fedele ma usa il log per monitorare volume e qualità.</div>
+    </div>
+    <div class="card">
+      ${Object.entries(PROGRAM).map(([week,days])=>`
+        <div class="week-row">
+          <div class="week-name">WEEK ${week}</div>
+          <div class="week-days">${days.map(d=>`<div class="day-pill"><b>${d.label}</b><br>${d.prescription}</div>`).join('')}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="success">
+      <b>Variazioni dal link:</b><br>
+      Week 4 Day 1 = ladder 1-2-3-4-(5).<br>
+      Week 4 Day 3 = alterna 3 e 4.<br>
+      Week 5 Day 1 = 3×3 leggero, Day 2 = test nuovo rep max.
+    </div>
+  `;
+}
+
+function sessionView(){
+  const p=getPrescription();
+  const exerciseName = state.currentExercise==='cp' ? 'Clean & Press' : 'Front Squat';
+  const nextRep = getNextRep();
+  const repText = p.mode==='test'
+    ? 'Test libero — trova nuovo rep max mantenendo tecnica pulita'
+    : `${nextRep} rep${nextRep===1?'':'s'}`;
+  const sideText = state.kbMode==='single' ? ` · Lato ${sideLabel(state.currentSide)}` : '';
+  const singleSideBlock = state.kbMode==='single' ? `
+      <div style="margin-top:12px;">
+        <div class="mini" style="margin-bottom:6px">Lato iniziale</div>
+        <div class="selector">
+          <div class="sel ${state.startSide==='dx'?'active':''}" onclick="state.startSide='dx';state.currentSide='dx';render()">DX</div>
+          <div class="sel ${state.startSide==='sx'?'active':''}" onclick="state.startSide='sx';state.currentSide='sx';render()">SX</div>
+        </div>
+        <div class="note" style="margin-top:8px;">Con 1 kettlebell l'app alterna automaticamente il lato dopo ogni coppia <b>Clean & Press + Front Squat</b>.</div>
+      </div>
+  ` : '';
+
+  const saveBtn = p.mode==='test'
+    ? `<button class="btn gold" onclick="const r=prompt('Nuovo rep max trovato?'); if(r!==null) finishAndSave('Rep max: '+r)">🏁 Salva test</button>`
+    : `<button class="btn gold" onclick="finishAndSave()">💾 Salva sessione</button>`;
+
+  const setupCard = `
+    <div class="card">
+      <div class="label">CONFIGURAZIONE SESSIONE</div>
+      <div class="grid2">
+        <div>
+          <div class="mini" style="margin-bottom:6px">Settimana</div>
+          <div class="selector">
+            ${[1,2,3,4,5].map(w=>`<div class="sel ${state.week===w?'active':''}" onclick="state.week=${w};state.day=1;resetSession();state.tab='session';render()">W${w}</div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div class="mini" style="margin-bottom:6px">Giorno</div>
+          <div class="selector">
+            ${PROGRAM[state.week].map(d=>`<div class="sel ${state.day===d.day?'active':''}" onclick="state.day=${d.day};resetSession();state.tab='session';render()">D${d.day}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div>
+          <div class="mini" style="margin-bottom:6px">Durata sessione</div>
+          <div class="selector">
+            ${[20,25,30].map(m=>`<div class="sel ${state.durationMin===m?'active':''}" onclick="state.durationMin=${m};resetSession();render()">${m} min</div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div class="mini" style="margin-bottom:6px">Modalità KB</div>
+          <div class="selector">
+            <div class="sel ${state.kbMode==='double'?'active':''}" onclick="state.kbMode='double';render()">2 KB</div>
+            <div class="sel ${state.kbMode==='single'?'active':''}" onclick="state.kbMode='single';render()">1 KB</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:12px;">
+        <div>
+          <div class="mini" style="margin-bottom:6px">Peso usato</div>
+          <input class="input" value="${state.usedWeight}" oninput="state.usedWeight=this.value" placeholder="16" />
+        </div>
+        <div>
+          <div class="mini" style="margin-bottom:6px">Riferimento carico</div>
+          <input class="input" value="${state.pressRM}" oninput="state.pressRM=this.value" placeholder="es. 16 kg singolo / 5RM pair" />
+        </div>
+      </div>
+
+      ${singleSideBlock}
+    </div>
+  `;
+
+  const preStartCard = `
+    <div class="card" style="text-align:center;">
+      <div class="label">AVVIO SESSIONE</div>
+      <div class="badge" style="background:#1A1200;color:#F8D67A">${p.label} · ${p.prescription}</div>
+      <div class="ring-wrap">${ring(state.durationMin*60, state.timer, p.mode==='test' ? '#FFC107' : '#FF5722')}</div>
+      <div class="sub" style="margin-top:6px;">Quando sei pronto, premi <b>Start sessione</b>. Entrerai nel runner con timer attivo e pulsante per avanzare i set.</div>
+      <div class="chips" style="margin-top:14px;justify-content:center;">
+        <div class="chip">Peso ${state.usedWeight || '—'} kg</div>
+        <div class="chip">${state.kbMode==='double'?'2 KB':'1 KB'}</div>
+        ${state.kbMode==='single' ? `<div class="chip">Partenza ${sideLabel(state.startSide)}</div>` : ''}
+      </div>
+      <div class="grid2" style="margin-top:14px;">
+        <button class="btn primary" onclick="startTimer()">▶ Start sessione</button>
+        <button class="btn dark" onclick="resetSession()">↺ Reset</button>
+      </div>
+    </div>
+  `;
+
+  const activeRunner = `
+    <div class="card" style="text-align:center;">
+      <div class="label">SESSION RUNNER</div>
+      <div class="badge" style="background:#1A1200;color:#F8D67A">${p.label} · ${p.prescription}</div>
+      <div class="ring-wrap">${ring(state.durationMin*60, state.timer, p.mode==='test' ? '#FFC107' : '#FF5722')}</div>
+      <div class="grid2">
+        <button class="btn ${state.running?'red':'primary'}" onclick="${state.running?'pauseTimer()':'startTimer()'}">${state.running?'⏸ Pausa':'▶ Riprendi'}</button>
+        <button class="btn dark" onclick="resetSession()">↺ Reset</button>
+      </div>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-top">
+        <div>
+          <div class="label">PROSSIMO SET</div>
+          <div class="exercise-name">${exerciseName}${sideText}</div>
+          <div class="prescription">${repText}</div>
+          <div class="exercise-meta" style="margin-top:8px;">Alterna sempre i 2 esercizi. Recupero libero, ma resta fresco.</div>
+        </div>
+        <div style="text-align:right;min-width:78px;">
+          <div class="label">TOTAL SETS</div>
+          <div class="h2" style="color:var(--accent)">${state.setCount}</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn green" onclick="nextSet()">✓ Avanza set</button>
+        <button class="btn dark" onclick="undoSet()">← Annulla</button>
+      </div>
+
+      <div class="controls3">
+        <div class="kpi"><div class="label">C&P SETS</div><div class="num" style="font-size:28px;color:var(--accent)">${state.pressSets}</div></div>
+        <div class="kpi"><div class="label">FS SETS</div><div class="num" style="font-size:28px;color:var(--green)">${state.squatSets}</div></div>
+        <div class="kpi"><div class="label">LADDER</div><div class="num" style="font-size:28px;color:var(--gold)">${p.mode==='fixed'||p.mode==='test'?'—':state.ladderIndex+1}</div></div>
+      </div>
+
+      <div class="chips" style="margin-top:12px;">
+        <div class="chip">Durata target ${state.durationMin} min</div>
+        <div class="chip">Peso ${state.usedWeight || '—'} kg</div>
+        <div class="chip">${state.kbMode==='double'?'2 KB':'1 KB'}</div>
+        ${state.kbMode==='single' ? `<div class="chip">Lato attuale ${sideLabel(state.currentSide)}</div>` : ''}
+      </div>
+    </div>
+  `;
+
+  return `
+    ${setupCard}
+    ${state.sessionPhase==='setup' ? preStartCard : activeRunner}
+
+    <div class="card">
+      <div class="label">NOTE SESSIONE</div>
+      <input class="input" placeholder="Fast & Loose, sensazioni, carico reale, note tecniche..." value="${state.notes}" oninput="state.notes=this.value" />
+      <div class="grid2" style="margin-top:12px;">
+        ${saveBtn}
+        <button class="btn dark" onclick="state.tab='log';render()">📊 Vai al log</button>
+      </div>
+    </div>
+  `;
+}
+
+function logView(){
+  const rows=state.log.map((x,i)=>`
+    <tr>
+      <td><b>${x.date}</b><br><span style="color:var(--muted)">W${x.week} · D${x.day}</span></td>
+      <td>${x.prescription}<br><span style="color:var(--muted)">${x.kbMode==='double'?'2 KB':'1 KB'}${x.usedWeight?` · ${x.usedWeight} kg`:''}${x.startSide?` · start ${x.startSide.toUpperCase()}`:''}</span></td>
+      <td><b>${x.setCount}</b><br><span style="color:var(--muted)">C&P ${x.pressSets} · FS ${x.squatSets}</span></td>
+      <td>${x.duration||x.durationTarget||30} min${x.durationTarget?`<br><span style="color:var(--muted)">target ${x.durationTarget}'</span>`:''}${x.testResult?`<br><span style="color:var(--gold)">${x.testResult}</span>`:''}</td>
+      <td style="text-align:right"><button class="smallbtn" onclick="deleteLog(${i})">Elimina</button></td>
+    </tr>
+    ${x.notes?`<tr><td colspan="5" style="padding-top:0;color:var(--muted);font-style:italic">“${x.notes}”</td></tr>`:''}
+  `).join('');
+  return `
+    <div class="card">
+      <div class="label">STORICO</div>
+      <h2 class="h2">Log DFW</h2>
+      <div class="sub" style="margin-top:8px;">Registra i set totali e confronta settimana dopo settimana. Il target è migliorare la qualità e il numero di set, senza perdere freschezza.</div>
+    </div>
+    <div class="card">
+      ${state.log.length ? `<table class="table"><thead><tr><th>Data</th><th>Schema</th><th>Set</th><th>Durata</th><th></th></tr></thead><tbody>${rows}</tbody></table>` : `<div class="empty">Nessuna sessione salvata.</div>`}
+    </div>
+  `;
+}
+
+function render(){
+  let content='';
+  if(state.tab==='home') content=homeView();
+  if(state.tab==='program') content=programView();
+  if(state.tab==='session') content=sessionView();
+  if(state.tab==='log') content=logView();
+  document.getElementById('app').innerHTML = content + `
+    <div class="bottom-nav">
+      <button class="navbtn ${state.tab==='home'?'active':''}" onclick="state.tab='home';render()">🏠<span>Home</span></button>
+      <button class="navbtn ${state.tab==='program'?'active':''}" onclick="state.tab='program';render()">📅<span>Piano</span></button>
+      <button class="navbtn ${state.tab==='session'?'active':''}" onclick="state.tab='session';render()">💪<span>Sessione</span></button>
+      <button class="navbtn ${state.tab==='log'?'active':''}" onclick="state.tab='log';render()">📊<span>Log</span></button>
+    </div>`;
+}
+resetSession();
+</script>
+</body>
+</html>

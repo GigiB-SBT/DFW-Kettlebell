@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>DFW Trainer</title>
+<title>DFW Hybrid</title>
+
+<meta name="theme-color" content="#080C0F" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="DFW Hybrid" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -46,6 +54,18 @@ html,body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',
 .smallbtn{padding:9px 10px;border-radius:10px;background:#0A0F12;color:var(--text);border:1px solid var(--border);font-size:12px;font-weight:700;cursor:pointer}
 .warning{background:#171108;border:1px solid #4B3811;border-radius:16px;padding:14px;color:#F8D67A}
 .success{background:#071814;border:1px solid #0F4D41;border-radius:16px;padding:14px;color:#7DE7D0}
+
+.install-banner{position:sticky;top:10px;z-index:20;background:#0B1218;border:1px solid #22303A;border-radius:18px;padding:14px 16px;margin-bottom:14px;display:flex;gap:12px;align-items:center}
+.install-banner.hidden{display:none}
+.install-banner .ico{font-size:24px}
+.install-banner .txt{flex:1}
+.install-banner .ttl{font-weight:700;font-size:14px}
+.install-banner .subt{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+.install-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.install-small{padding:10px 12px;border:none;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer}
+.install-small.primary{background:var(--accent);color:#111}
+.install-small.secondary{background:#0A0F12;color:var(--text);border:1px solid var(--border)}
+
 </style>
 </head>
 <body>
@@ -219,11 +239,24 @@ function homeView(){
   const totalSessions=state.log.length;
   const bestSets=state.log.reduce((m,x)=>Math.max(m,x.setCount||0),0);
   const last=state.log[0];
+  const installBanner = showInstallBanner() ? `
+    <div class="install-banner">
+      <div class="ico">📲</div>
+      <div class="txt">
+        <div class="ttl">Installa DFW Hybrid</div>
+        <div class="subt">Versione app con icona nuova e supporto offline. Installazione quasi immediata.</div>
+        <div class="install-actions">
+          <button class="install-small primary" onclick="installApp()">Installa</button>
+          <button class="install-small secondary" onclick="dismissInstall()">Dopo</button>
+        </div>
+      </div>
+    </div>` : '';
   return `
+${installBanner}
     <div class="card" style="padding-top:26px;">
       <div class="label" style="color:var(--accent)">DRY FIGHTING WEIGHT</div>
       <h1 class="h1">DFW</h1>
-      <div class="sub" style="margin-top:10px;">App dedicata al programma fedele del link: 5 settimane, 3 giorni a settimana, 20, 25 o 30 minuti, alternanza tra <b>Clean & Press</b> e <b>Front Squat</b>, con supporto anche a <b>1 kettlebell</b>.</div>
+      <div class="sub" style="margin-top:10px;">App ibrida installabile dedicata al programma fedele del link: 5 settimane, 3 giorni a settimana, 20, 25 o 30 minuti, alternanza tra <b>Clean & Press</b> e <b>Front Squat</b>, con supporto anche a <b>1 kettlebell</b>.</div>
       <div class="chips" style="margin-top:14px;">
         <div class="chip">5 settimane</div><div class="chip">3 giorni / settimana</div><div class="chip">20 / 25 / 30 min</div><div class="chip">1 o 2 kettlebell</div>
       </div>
@@ -452,6 +485,51 @@ function logView(){
       ${state.log.length ? `<table class="table"><thead><tr><th>Data</th><th>Schema</th><th>Set</th><th>Durata</th><th></th></tr></thead><tbody>${rows}</tbody></table>` : `<div class="empty">Nessuna sessione salvata.</div>`}
     </div>
   `;
+}
+
+
+let deferredPrompt = null;
+let installDismissed = localStorage.getItem('dfw-install-dismissed') === '1';
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if(state && state.tab==='home') render();
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  installDismissed = true;
+  localStorage.setItem('dfw-install-dismissed','1');
+  render();
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+  });
+}
+
+function showInstallBanner(){
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  return !standalone && !installDismissed;
+}
+
+async function installApp(){
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    try { await deferredPrompt.userChoice; } catch(e){}
+    deferredPrompt = null;
+    render();
+    return;
+  }
+  alert("Su Android: menu browser → Aggiungi a schermata Home.\nSu iPhone: Condividi → Aggiungi a Home.");
+}
+
+function dismissInstall(){
+  installDismissed = true;
+  localStorage.setItem('dfw-install-dismissed','1');
+  render();
 }
 
 function render(){

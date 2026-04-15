@@ -3,15 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>DFW Hybrid</title>
-
-<meta name="theme-color" content="#080C0F" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="DFW Hybrid" />
-<link rel="manifest" href="manifest.json" />
-<link rel="apple-touch-icon" href="apple-touch-icon.png" />
-
+<title>DFW Trainer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -55,17 +47,7 @@ html,body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',
 .warning{background:#171108;border:1px solid #4B3811;border-radius:16px;padding:14px;color:#F8D67A}
 .success{background:#071814;border:1px solid #0F4D41;border-radius:16px;padding:14px;color:#7DE7D0}
 
-.install-banner{position:sticky;top:10px;z-index:20;background:#0B1218;border:1px solid #22303A;border-radius:18px;padding:14px 16px;margin-bottom:14px;display:flex;gap:12px;align-items:center}
-.install-banner.hidden{display:none}
-.install-banner .ico{font-size:24px}
-.install-banner .txt{flex:1}
-.install-banner .ttl{font-weight:700;font-size:14px}
-.install-banner .subt{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
-.install-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.install-small{padding:10px 12px;border:none;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer}
-.install-small.primary{background:var(--accent);color:#111}
-.install-small.secondary{background:#0A0F12;color:var(--text);border:1px solid var(--border)}
-
+.wake-status{margin-top:10px;font-size:12px;color:var(--muted);text-align:center}
 </style>
 </head>
 <body>
@@ -113,6 +95,10 @@ const state = {
   running:false,
   timer:1800,
   timerId:null,
+  timerStartedAt:null,
+  timerEndsAt:null,
+  wakeLock:null,
+  wakeLockEnabled:false,
   currentExercise:'cp',
   setCount:0,
   squatSets:0,
@@ -184,18 +170,69 @@ function undoSet(){
   state.setCount=Math.max(0,state.setCount-1);
   render();
 }
+async function requestWakeLock(){
+  try{
+    if('wakeLock' in navigator && document.visibilityState === 'visible'){
+      state.wakeLock = await navigator.wakeLock.request('screen');
+      state.wakeLockEnabled = true;
+      state.wakeLock.addEventListener('release', () => {
+        state.wakeLockEnabled = false;
+        render();
+      });
+    }else{
+      state.wakeLockEnabled = false;
+    }
+  }catch(e){
+    state.wakeLockEnabled = false;
+  }
+}
+async function releaseWakeLock(){
+  try{
+    if(state.wakeLock){
+      await state.wakeLock.release();
+    }
+  }catch(e){}
+  state.wakeLock = null;
+  state.wakeLockEnabled = false;
+}
+function refreshTimerFromClock(){
+  if(!state.running || !state.timerEndsAt) return;
+  const left = Math.max(0, Math.ceil((state.timerEndsAt - Date.now())/1000));
+  state.timer = left;
+  if(left <= 0){
+    pauseTimer(true);
+  }
+}
+function startHeartbeat(){
+  clearInterval(state.timerId);
+  state.timerId = setInterval(()=>{
+    refreshTimerFromClock();
+    render();
+  }, 500);
+}
 function startTimer(){
   if(state.running) return;
   state.sessionPhase='active';
   state.running=true;
-  if(!state.sessionStartedAt) state.sessionStartedAt=Date.now();
-  state.timerId=setInterval(()=>{
-    if(state.timer>0){ state.timer--; render(); }
-    else { pauseTimer(); render(); }
-  },1000);
+  const now = Date.now();
+  if(!state.sessionStartedAt) state.sessionStartedAt = now;
+  state.timerStartedAt = now;
+  state.timerEndsAt = now + (state.timer * 1000);
+  requestWakeLock();
+  startHeartbeat();
   render();
 }
-function pauseTimer(){ state.running=false; clearInterval(state.timerId); state.timerId=null; render(); }
+function pauseTimer(finished=false){
+  refreshTimerFromClock();
+  state.running=false;
+  clearInterval(state.timerId);
+  state.timerId=null;
+  state.timerStartedAt=null;
+  state.timerEndsAt=null;
+  releaseWakeLock();
+  if(finished){ state.timer = 0; beep(); vibrate(); }
+  render();
+}
 function resetSession(){
   pauseTimer();
   state.sessionPhase='setup';
@@ -212,6 +249,7 @@ function resetSession(){
 }
 function finishAndSave(testResult=''){
   const p=getPrescription();
+  refreshTimerFromClock();
   const duration = state.sessionStartedAt ? Math.round((Date.now()-state.sessionStartedAt)/60000) : Math.round((state.durationMin*60-state.timer)/60);
   state.log.unshift({
     date:todayISO(),
@@ -239,24 +277,11 @@ function homeView(){
   const totalSessions=state.log.length;
   const bestSets=state.log.reduce((m,x)=>Math.max(m,x.setCount||0),0);
   const last=state.log[0];
-  const installBanner = showInstallBanner() ? `
-    <div class="install-banner">
-      <div class="ico">📲</div>
-      <div class="txt">
-        <div class="ttl">Installa DFW Hybrid</div>
-        <div class="subt">Versione app con icona nuova e supporto offline. Installazione quasi immediata.</div>
-        <div class="install-actions">
-          <button class="install-small primary" onclick="installApp()">Installa</button>
-          <button class="install-small secondary" onclick="dismissInstall()">Dopo</button>
-        </div>
-      </div>
-    </div>` : '';
   return `
-${installBanner}
     <div class="card" style="padding-top:26px;">
       <div class="label" style="color:var(--accent)">DRY FIGHTING WEIGHT</div>
       <h1 class="h1">DFW</h1>
-      <div class="sub" style="margin-top:10px;">App ibrida installabile dedicata al programma fedele del link: 5 settimane, 3 giorni a settimana, 20, 25 o 30 minuti, alternanza tra <b>Clean & Press</b> e <b>Front Squat</b>, con supporto anche a <b>1 kettlebell</b>.</div>
+      <div class="sub" style="margin-top:10px;">App dedicata al programma fedele del link: 5 settimane, 3 giorni a settimana, 20, 25 o 30 minuti, alternanza tra <b>Clean & Press</b> e <b>Front Squat</b>, con supporto anche a <b>1 kettlebell</b>.</div>
       <div class="chips" style="margin-top:14px;">
         <div class="chip">5 settimane</div><div class="chip">3 giorni / settimana</div><div class="chip">20 / 25 / 30 min</div><div class="chip">1 o 2 kettlebell</div>
       </div>
@@ -401,6 +426,7 @@ function sessionView(){
         <button class="btn primary" onclick="startTimer()">▶ Start sessione</button>
         <button class="btn dark" onclick="resetSession()">↺ Reset</button>
       </div>
+      <div class="wake-status">L'app prova a tenere lo schermo acceso. Se il telefono lo blocca comunque, il timer continua in base all'orario reale.</div>
     </div>
   `;
 
@@ -413,6 +439,7 @@ function sessionView(){
         <button class="btn ${state.running?'red':'primary'}" onclick="${state.running?'pauseTimer()':'startTimer()'}">${state.running?'⏸ Pausa':'▶ Riprendi'}</button>
         <button class="btn dark" onclick="resetSession()">↺ Reset</button>
       </div>
+      <div class="wake-status">${state.wakeLockEnabled ? '🔓 Schermo tenuto attivo' : '🌙 Timer protetto anche se lo schermo si spegne'}</div>
     </div>
 
     <div class="exercise-card">
@@ -487,49 +514,42 @@ function logView(){
   `;
 }
 
-
-let deferredPrompt = null;
-let installDismissed = localStorage.getItem('dfw-install-dismissed') === '1';
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if(state && state.tab==='home') render();
-});
-
-window.addEventListener('appinstalled', () => {
-  deferredPrompt = null;
-  installDismissed = true;
-  localStorage.setItem('dfw-install-dismissed','1');
-  render();
-});
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-  });
-}
-
-function showInstallBanner(){
-  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  return !standalone && !installDismissed;
-}
-
-async function installApp(){
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    try { await deferredPrompt.userChoice; } catch(e){}
-    deferredPrompt = null;
+document.addEventListener('visibilitychange', async () => {
+  if(document.visibilityState === 'visible' && state.running){
+    refreshTimerFromClock();
+    await requestWakeLock();
+    startHeartbeat();
     render();
-    return;
   }
-  alert("Su Android: menu browser → Aggiungi a schermata Home.\nSu iPhone: Condividi → Aggiungi a Home.");
+});
+window.addEventListener('pageshow', () => {
+  if(state.running){
+    refreshTimerFromClock();
+    startHeartbeat();
+    render();
+  }
+});
+
+
+function beep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    setTimeout(()=>{osc.stop();ctx.close();},300);
+  }catch(e){}
 }
 
-function dismissInstall(){
-  installDismissed = true;
-  localStorage.setItem('dfw-install-dismissed','1');
-  render();
+function vibrate(){
+  if(navigator.vibrate){
+    navigator.vibrate([200,100,200]);
+  }
 }
 
 function render(){

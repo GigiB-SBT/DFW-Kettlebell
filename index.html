@@ -1,572 +1,588 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>DFW Trainer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<html class="dark" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="DFW"/>
+<title>DFW — Dry Fighting Weight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-bright": "#3f3835",
+                        "inverse-primary": "#885034",
+                        "outline": "#9f8d85",
+                        "tertiary-container": "#e9c176",
+                        "on-secondary-container": "#003c39",
+                        "on-tertiary-container": "#6a4e0c",
+                        "secondary-fixed": "#72f7ee",
+                        "inverse-surface": "#ece0db",
+                        "inverse-on-surface": "#362f2c",
+                        "background": "#181210",
+                        "on-primary": "#50240b",
+                        "surface": "#181210",
+                        "tertiary-fixed": "#ffdea5",
+                        "on-secondary-fixed": "#00201e",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#261900",
+                        "on-primary-fixed-variant": "#6c3a1f",
+                        "secondary": "#50dad1",
+                        "on-secondary-fixed-variant": "#00504c",
+                        "on-surface": "#ece0db",
+                        "primary-container": "#ffb693",
+                        "surface-variant": "#3a3330",
+                        "surface-container-highest": "#3a3330",
+                        "tertiary-fixed-dim": "#e9c176",
+                        "outline-variant": "#52443d",
+                        "tertiary": "#ffdea5",
+                        "on-primary-fixed": "#341000",
+                        "secondary-fixed-dim": "#50dad1",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#120d0b",
+                        "on-primary-container": "#7a452a",
+                        "on-tertiary-fixed-variant": "#5d4200",
+                        "secondary-container": "#00b0a8",
+                        "on-secondary": "#003734",
+                        "on-tertiary": "#412d00",
+                        "on-background": "#ece0db",
+                        "surface-tint": "#ffb693",
+                        "primary": "#ffdbcc",
+                        "surface-container-high": "#2f2926",
+                        "surface-container": "#241e1c",
+                        "surface-container-low": "#201a18",
+                        "surface-dim": "#181210",
+                        "on-surface-variant": "#d7c2ba",
+                        "primary-fixed": "#ffdbcb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "lg": "40px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "sm": "16px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Bebas Neue"],
+                        "label-sm": ["Bebas Neue"],
+                        "body-lg": ["DM Sans"],
+                        "headline-lg": ["Bebas Neue"],
+                        "display-md": ["Bebas Neue"],
+                        "label-lg": ["Bebas Neue"],
+                        "body-md": ["DM Sans"],
+                        "headline-lg-mobile": ["Bebas Neue"],
+                        "display-lg": ["Bebas Neue"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", {"lineHeight": "24px", "letterSpacing": "0.08em", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "display-md": ["48px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "label-lg": ["16px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "28px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "64px", "letterSpacing": "0.02em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
 <style>
-:root{
-  --bg:#080C0F;--card:#0F1419;--card2:#111A22;--border:#1E2A35;
-  --text:#F0F4F8;--muted:#7D8C99;--accent:#FF5722;--gold:#FFC107;--green:#00BFA5;--red:#EF5350;--blue:#2196F3;
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100%}
-#app{max-width:480px;margin:0 auto;min-height:100vh;padding:14px 14px 90px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:0 10px 25px rgba(0,0,0,.18)}
-.card + .card{margin-top:14px}
-.label{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:8px}
-.h1,.h2,.h3{font-family:'Bebas Neue',sans-serif;line-height:1;margin:0}
-.h1{font-size:50px}.h2{font-size:30px}.h3{font-size:22px}
-.sub{font-size:13px;color:var(--muted);line-height:1.55}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.btn{border:none;border-radius:16px;padding:15px 14px;font-weight:700;font-size:15px;cursor:pointer}
-.btn.primary{background:var(--accent);color:#111}.btn.dark{background:#0A0F12;color:var(--text);border:1px solid var(--border)}
-.btn.gold{background:var(--gold);color:#111}.btn.green{background:var(--green);color:#062018}.btn.red{background:#2A0F12;color:#FF8A80;border:1px solid #4A1E24}
-.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:6px 10px;border-radius:999px;border:1px solid var(--border);font-size:11px;color:var(--muted);font-weight:700}
-.week-row{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid #16212B}.week-row:last-child{border-bottom:none;padding-bottom:0}
-.week-name{font-size:11px;color:var(--muted);letter-spacing:2px;padding-top:5px}.week-days{display:flex;flex-wrap:wrap;gap:8px}
-.day-pill{padding:8px 10px;border-radius:12px;background:#0A0F12;border:1px solid var(--border);font-size:12px;font-weight:700}
-.kpi{padding:14px;border-radius:18px;background:#0B1218;border:1px solid #182632}.kpi .num{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;margin-top:4px}
-.bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(460px,calc(100% - 18px));display:flex;gap:8px;background:rgba(15,20,25,.94);border:1px solid var(--border);border-radius:18px;padding:8px;backdrop-filter:blur(10px)}
-.navbtn{flex:1;border:none;background:#0A0F12;color:var(--muted);border-radius:14px;padding:10px 6px;font-size:11px;font-weight:700;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}.navbtn.active{color:var(--text);outline:1px solid var(--accent)}
-.selector{display:flex;gap:8px;flex-wrap:wrap}.sel{padding:10px 12px;border-radius:12px;background:#0A0F12;border:1px solid var(--border);font-size:13px;font-weight:700;cursor:pointer;color:var(--muted)}.sel.active{border-color:var(--accent);color:var(--text)}
-.ring-wrap{display:flex;justify-content:center;margin:10px 0 16px}.ring-text-big{font-family:'Bebas Neue',sans-serif;font-size:42px}.ring-text-small{font-size:12px;letter-spacing:2px;color:var(--muted)}
-.exercise-card{padding:14px;border-radius:18px;background:#0A0F12;border:1px solid var(--border)}
-.exercise-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.exercise-name{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1}.exercise-meta{font-size:12px;color:var(--muted)}
-.prescription{font-size:15px;font-weight:700;margin-top:4px;color:var(--gold)}
-.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.controls3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
-.mini{font-size:12px;color:var(--muted)}
-.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px 8px;border-bottom:1px solid #16212B;font-size:13px;text-align:left}.table th{color:var(--muted);font-size:11px;letter-spacing:2px}.table tr:last-child td{border-bottom:none}
-.input{width:100%;background:#0A0F12;border:1px solid var(--border);border-radius:12px;padding:13px 12px;color:var(--text);font-size:15px}
-.note{font-size:12px;line-height:1.6;color:var(--muted)}
-.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700}
-.empty{padding:30px 18px;text-align:center;color:var(--muted)}
-.smallbtn{padding:9px 10px;border-radius:10px;background:#0A0F12;color:var(--text);border:1px solid var(--border);font-size:12px;font-weight:700;cursor:pointer}
-.warning{background:#171108;border:1px solid #4B3811;border-radius:16px;padding:14px;color:#F8D67A}
-.success{background:#071814;border:1px solid #0F4D41;border-radius:16px;padding:14px;color:#7DE7D0}
-
-.wake-status{margin-top:10px;font-size:12px;color:var(--muted);text-align:center}
-</style>
-</head>
-<body>
-<div id="app"></div>
+        body {
+            background-color: #090C0F;
+            color: #ece0db;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bebas { font-family: 'Bebas Neue', sans-serif; }
+        .sharp-border { border: 1px solid rgba(90, 65, 54, 0.4); }
+        .active-nav-border { border-top: 4px solid #ffb693; }
+        .btn-press:active { transform: translate(2px, 2px); }
+        .card-void { margin-bottom: 16px; }
+        ::-webkit-scrollbar { display: none; }
+        
+        #timer-ring { transition: stroke-dashoffset 0.1s linear; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<!-- TOP BAR -->
+<header class="fixed top-0 w-full max-w-[480px] z-50 bg-background border-b-2 border-outline-variant flex justify-between items-center px-margin-mobile h-16">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile uppercase text-primary-fixed-dim tracking-widest">IRON COMMAND</h1>
+<span class="material-symbols-outlined text-on-surface">settings</span>
+</header>
+<!-- CONTENT CANVAS -->
+<main class="pt-20 px-margin-mobile" id="app-canvas">
+<!-- HOME SECTION -->
+<section class="view hidden" id="view-home">
+<h2 class="font-display-lg text-display-lg text-primary-fixed-dim leading-none mb-gutter">DRY FIGHTING WEIGHT</h2>
+<div class="grid grid-cols-3 gap-xs mb-gutter">
+<div class="bg-surface-container p-xs sharp-border flex flex-col items-center">
+<span class="text-label-sm font-label-sm text-outline uppercase">Sessions</span>
+<span class="text-headline-lg font-headline-lg" id="stat-sessions">0</span>
+</div>
+<div class="bg-surface-container p-xs sharp-border flex flex-col items-center">
+<span class="text-label-sm font-label-sm text-outline uppercase">Best Set</span>
+<span class="text-headline-lg font-headline-lg" id="stat-best">0</span>
+</div>
+<div class="bg-surface-container p-xs sharp-border flex flex-col items-center">
+<span class="text-label-sm font-label-sm text-outline uppercase">Last Vol</span>
+<span class="text-headline-lg font-headline-lg" id="stat-last">0</span>
+</div>
+</div>
+<button class="w-full bg-primary-fixed-dim text-on-primary-fixed font-label-lg text-label-lg py-md mb-xs btn-press uppercase" onclick="switchTab('Sessione')">AVVIA SESSIONE</button>
+<button class="w-full border-2 border-secondary text-secondary font-label-lg text-label-lg py-md mb-gutter btn-press uppercase" onclick="switchTab('Piano')">VEDI PIANO</button>
+<div class="bg-surface-container sharp-border p-sm card-void">
+<h3 class="font-title-md text-title-md mb-xs uppercase text-tertiary">HOW TO EXECUTE</h3>
+<div class="text-on-surface-variant font-body-md text-body-md space-y-1">
+<p>1. Warm up thoroughly.</p>
+<p>2. Use heavy double KBs (C&amp;P, FS).</p>
+<p>3. Rest as needed (Autoregulated).</p>
+<p>4. Match reps for both exercises.</p>
+<p>5. Increase sets each session.</p>
+<p>6. Stop when timer expires.</p>
+</div>
+</div>
+<div class="bg-error-container border-2 border-error p-sm mb-gutter">
+<h3 class="font-title-md text-title-md mb-xs uppercase text-on-error-container">WARNING: NO FAILURE</h3>
+<p class="font-body-md text-body-md text-on-error-container">Never go to technical failure. Always leave 1-2 reps in the tank to ensure consistency throughout the 30 minutes.</p>
+</div>
+</section>
+<!-- PIANO SECTION -->
+<section class="view hidden" id="view-piano">
+<h2 class="font-headline-lg text-headline-lg text-primary-fixed-dim mb-gutter uppercase">TRAINING PROGRAM</h2>
+<div class="space-y-gutter" id="piano-container">
+<!-- Program generated via JS -->
+</div>
+</section>
+<!-- SESSIONE SECTION -->
+<section class="view hidden" id="view-sessione">
+<!-- SETUP SUB-VIEW -->
+<div class="space-y-gutter" id="session-setup">
+<h2 class="font-headline-lg text-headline-lg text-primary-fixed-dim uppercase">SESSION SETUP</h2>
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex flex-col">
+<label class="text-label-sm font-label-sm uppercase text-outline mb-1">Week</label>
+<select class="bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none" id="setup-week">
+<option value="1">Week 1</option><option value="2">Week 2</option><option value="3">Week 3</option><option value="4">Week 4</option><option value="5">Week 5</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="text-label-sm font-label-sm uppercase text-outline mb-1">Day</label>
+<select class="bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none" id="setup-day">
+<option value="1">Day 1</option><option value="2">Day 2</option><option value="3">Day 3</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex flex-col">
+<label class="text-label-sm font-label-sm uppercase text-outline mb-1">Duration (Min)</label>
+<select class="bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none" id="setup-duration">
+<option value="20">20 min</option><option value="25">25 min</option><option selected="" value="30">30 min</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="text-label-sm font-label-sm uppercase text-outline mb-1">KB Mode</label>
+<select class="bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none" id="setup-mode">
+<option value="2">Double Kettlebell</option><option value="1">Single Kettlebell</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="text-label-sm font-label-sm uppercase text-outline mb-1">Working Weight (kg)</label>
+<input class="bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none" id="setup-weight" placeholder="e.g. 24" type="number"/>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-label-lg text-label-lg py-md btn-press uppercase" onclick="initSession()">LOCK &amp; LOAD</button>
+</div>
+<!-- RUNNER SUB-VIEW -->
+<div class="hidden flex flex-col items-center" id="session-runner">
+<div class="relative w-64 h-64 mb-gutter">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="128" cy="128" fill="transparent" r="72" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-primary-fixed-dim" cx="128" cy="128" fill="transparent" id="timer-ring" r="72" stroke="currentColor" stroke-dasharray="452.4" stroke-dashoffset="0" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-md text-display-md leading-none" id="display-timer">30:00</span>
+<span class="font-label-sm text-label-sm text-outline uppercase mt-2" id="display-sets">Set 0</span>
+</div>
+</div>
+<div class="w-full bg-surface-container sharp-border p-gutter text-center mb-gutter" id="active-exercise">
+<h3 class="font-headline-lg text-headline-lg uppercase text-tertiary" id="ex-name">CLEAN &amp; PRESS</h3>
+<div class="flex items-center justify-center gap-base mt-base">
+<span class="bg-primary-fixed-dim text-on-primary-fixed font-title-md text-title-md px-md py-xs" id="ex-reps">3 REPS</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm w-full mb-gutter">
+<button class="border-2 border-outline text-outline font-label-lg text-label-lg py-md btn-press uppercase flex items-center justify-center gap-xs" onclick="undoSet()">
+<span class="material-symbols-outlined">undo</span> ANNULLA
+                    </button>
+<button class="bg-primary-fixed-dim text-on-primary-fixed font-label-lg text-label-lg py-md btn-press uppercase flex items-center justify-center gap-xs" id="btn-next" onclick="nextSet()">
+<span class="material-symbols-outlined">check_circle</span> AVANZA SET
+                    </button>
+</div>
+<div class="w-full grid grid-cols-2 gap-sm mb-gutter">
+<div class="bg-surface-container sharp-border p-sm flex flex-col items-center">
+<span class="text-label-sm font-label-sm text-outline uppercase">Total Reps</span>
+<span class="text-headline-lg font-headline-lg" id="run-total-reps">0</span>
+</div>
+<div class="bg-surface-container sharp-border p-sm flex flex-col items-center">
+<span class="text-label-sm font-label-sm text-outline uppercase">Volume</span>
+<span class="text-headline-lg font-headline-lg" id="run-volume">0kg</span>
+</div>
+</div>
+<textarea class="w-full bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none mb-gutter h-24 resize-none" id="session-notes" placeholder="NOTES (e.g. Kettlebell too light, focus on lockouts)"></textarea>
+<div class="w-full flex gap-sm">
+<button class="flex-1 border-2 border-error text-error font-label-lg text-label-lg py-md btn-press uppercase" onclick="resetSession()">EXIT</button>
+<button class="flex-[2] bg-tertiary-container text-on-tertiary-container font-label-lg text-label-lg py-md btn-press uppercase" id="btn-save" onclick="finishAndSave()">SALVA SESSIONE</button>
+</div>
+</div>
+</section>
+<!-- LOG SECTION -->
+<section class="view hidden" id="view-log">
+<div class="flex justify-between items-end mb-gutter">
+<h2 class="font-headline-lg text-headline-lg text-primary-fixed-dim uppercase leading-none">WAR LOG</h2>
+<button class="text-error font-label-sm text-label-sm uppercase border-b border-error" onclick="clearAllLogs()">Purge All</button>
+</div>
+<div class="space-y-xs" id="log-list">
+<!-- Log entries generated via JS -->
+</div>
+</section>
+</main>
+<!-- BOTTOM NAV BAR -->
+<nav class="fixed bottom-0 w-full max-w-[480px] z-50 bg-background border-t-2 border-outline-variant flex justify-around items-center h-20 px-margin-mobile">
+<button class="nav-item flex flex-col items-center justify-center text-on-surface-variant opacity-70 transition-all duration-100 active:scale-95" id="nav-Home" onclick="switchTab('Home')">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm uppercase">Home</span>
+</button>
+<button class="nav-item flex flex-col items-center justify-center text-on-surface-variant opacity-70 transition-all duration-100 active:scale-95" id="nav-Piano" onclick="switchTab('Piano')">
+<span class="material-symbols-outlined">rebase_edit</span>
+<span class="font-label-sm text-label-sm uppercase">Piano</span>
+</button>
+<button class="nav-item flex flex-col items-center justify-center text-on-surface-variant opacity-70 transition-all duration-100 active:scale-95" id="nav-Sessione" onclick="switchTab('Sessione')">
+<span class="material-symbols-outlined">timer</span>
+<span class="font-label-sm text-label-sm uppercase">Sessione</span>
+</button>
+<button class="nav-item flex flex-col items-center justify-center text-on-surface-variant opacity-70 transition-all duration-100 active:scale-95" id="nav-Log" onclick="switchTab('Log')">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm uppercase">Log</span>
+</button>
+</nav>
 <script>
-const PROGRAM = {
-  1:[
-    {day:1,label:'Day 1',prescription:'Ladder 1-2-3',mode:'ladder',steps:[1,2,3]},
-    {day:2,label:'Day 2',prescription:'Singles',mode:'fixed',steps:[1]},
-    {day:3,label:'Day 3',prescription:'Doubles',mode:'fixed',steps:[2]},
-  ],
-  2:[
-    {day:1,label:'Day 1',prescription:'Ladder 1-2-3',mode:'ladder',steps:[1,2,3]},
-    {day:2,label:'Day 2',prescription:'Singles',mode:'fixed',steps:[1]},
-    {day:3,label:'Day 3',prescription:'Triples',mode:'fixed',steps:[3]},
-  ],
-  3:[
-    {day:1,label:'Day 1',prescription:'Ladder 1-2-3-4',mode:'ladder',steps:[1,2,3,4]},
-    {day:2,label:'Day 2',prescription:'Doubles',mode:'fixed',steps:[2]},
-    {day:3,label:'Day 3',prescription:'Triples',mode:'fixed',steps:[3]},
-  ],
-  4:[
-    {day:1,label:'Day 1',prescription:'Ladder 1-2-3-4-(5)',mode:'ladder',steps:[1,2,3,4,5]},
-    {day:2,label:'Day 2',prescription:'Doubles',mode:'fixed',steps:[2]},
-    {day:3,label:'Day 3',prescription:'Alternate 3 / 4',mode:'alt34',steps:[3,4]},
-  ],
-  5:[
-    {day:1,label:'Day 1',prescription:'3×3 light day',mode:'threebythree',steps:[3,3,3]},
-    {day:2,label:'Day 2',prescription:'Test new rep max',mode:'test',steps:[1]},
-  ]
-};
+        const PROGRAM = {
+            1: { 1: [1,2,3], 2: [1,1,1], 3: [1,2] },
+            2: { 1: [1,2,3,4], 2: [1,1], 3: [1,2,3] },
+            3: { 1: [1,2,3,4,5], 2: [1,1,1,1], 3: [1,2,3,4] },
+            4: { 1: [1,2,3], 2: [1,1,1], 3: [1,2] }, // Recovery / Test prep
+            5: { 1: [1,2,3,4,5,6], 2: [1,1,1,1,1], 3: [1,2,3,4,5] }
+        };
 
-const state = {
-  tab:'home',
-  week:1,
-  day:1,
-  kbMode:'single',
-  pressRM:'16 kg',
-  usedWeight:'16',
-  durationMin:30,
-  startSide:'dx',
-  currentSide:'dx',
-  sessionPhase:'setup',
-  notes:'',
-  running:false,
-  timer:1800,
-  timerId:null,
-  timerStartedAt:null,
-  timerEndsAt:null,
-  wakeLock:null,
-  wakeLockEnabled:false,
-  currentExercise:'cp',
-  setCount:0,
-  squatSets:0,
-  pressSets:0,
-  ladderIndex:0,
-  sessionStartedAt:null,
-  log:JSON.parse(localStorage.getItem('dfw-log-v2')||localStorage.getItem('dfw-log-v1')||'[]')
-};
+        let state = {
+            activeView: 'Home',
+            session: null, // { week, day, duration, mode, weight, sets: [], startTime, timerId, isActive }
+            log: JSON.parse(localStorage.getItem('dfw-log-v2') || '[]'),
+            wakeLock: null
+        };
 
-function save(){
-  localStorage.setItem('dfw-log-v2',JSON.stringify(state.log));
-}
-function getPrescription(){return PROGRAM[state.week].find(x=>x.day===state.day) || PROGRAM[1][0];}
-function fmtTime(s){const m=Math.floor(s/60),r=s%60;return String(m).padStart(2,'0')+':'+String(r).padStart(2,'0');}
-function todayISO(){const d=new Date();return d.toLocaleDateString('it-IT');}
-function ring(total,remaining,color='#FF5722'){
-  const r=72,c=2*Math.PI*r,p=remaining/total,d=c*p;
-  return `<svg width="180" height="180" viewBox="0 0 180 180">
-    <circle cx="90" cy="90" r="72" fill="none" stroke="#1E2A35" stroke-width="10"></circle>
-    <circle cx="90" cy="90" r="72" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round"
-      stroke-dasharray="${d} ${c}" stroke-dashoffset="${c*0.25}" style="transition:all .3s ease"></circle>
-    <text x="90" y="87" text-anchor="middle" fill="#F0F4F8" font-family="Bebas Neue" font-size="42">${fmtTime(remaining)}</text>
-    <text x="90" y="110" text-anchor="middle" fill="#7D8C99" font-family="DM Sans" font-size="12">${state.durationMin} MIN SESSION</text>
-  </svg>`;
-}
-function getNextRep(){
-  const p=getPrescription();
-  if(p.mode==='ladder') return p.steps[state.ladderIndex % p.steps.length];
-  if(p.mode==='fixed') return p.steps[0];
-  if(p.mode==='alt34') return p.steps[state.ladderIndex % 2];
-  if(p.mode==='threebythree') return p.steps[Math.min(state.ladderIndex,2)] || 3;
-  if(p.mode==='test') return '?';
-  return 1;
-}
+        // --- NAVIGATION ---
+        function switchTab(tabName) {
+            state.activeView = tabName;
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`view-${tabName.toLowerCase()}`).classList.remove('hidden');
 
-function sideLabel(v){ return v==='sx' ? 'SX' : 'DX'; }
-function nextSet(){
-  if(state.currentExercise==='cp'){
-    state.pressSets++;
-    state.setCount++;
-    state.currentExercise='fs';
-  }else{
-    state.squatSets++;
-    state.setCount++;
-    state.currentExercise='cp';
-    state.ladderIndex++;
-    if(state.kbMode==='single'){
-      state.currentSide = state.currentSide==='dx' ? 'sx' : 'dx';
-    }
-  }
-  render();
-}
-function undoSet(){
-  if(state.setCount<=0) return;
-  if(state.currentExercise==='cp'){
-    state.currentExercise='fs';
-    if(state.kbMode==='single'){
-      state.currentSide = state.currentSide==='dx' ? 'sx' : 'dx';
-    }
-  }else{
-    state.currentExercise='cp';
-  }
-  if(state.currentExercise==='cp') {
-    state.pressSets=Math.max(0,state.pressSets-1);
-  } else {
-    state.squatSets=Math.max(0,state.squatSets-1);
-    state.ladderIndex=Math.max(0,state.ladderIndex-1);
-  }
-  state.setCount=Math.max(0,state.setCount-1);
-  render();
-}
-async function requestWakeLock(){
-  try{
-    if('wakeLock' in navigator && document.visibilityState === 'visible'){
-      state.wakeLock = await navigator.wakeLock.request('screen');
-      state.wakeLockEnabled = true;
-      state.wakeLock.addEventListener('release', () => {
-        state.wakeLockEnabled = false;
-        render();
-      });
-    }else{
-      state.wakeLockEnabled = false;
-    }
-  }catch(e){
-    state.wakeLockEnabled = false;
-  }
-}
-async function releaseWakeLock(){
-  try{
-    if(state.wakeLock){
-      await state.wakeLock.release();
-    }
-  }catch(e){}
-  state.wakeLock = null;
-  state.wakeLockEnabled = false;
-}
-function refreshTimerFromClock(){
-  if(!state.running || !state.timerEndsAt) return;
-  const left = Math.max(0, Math.ceil((state.timerEndsAt - Date.now())/1000));
-  state.timer = left;
-  if(left <= 0){
-    pauseTimer(true);
-  }
-}
-function startHeartbeat(){
-  clearInterval(state.timerId);
-  state.timerId = setInterval(()=>{
-    refreshTimerFromClock();
-    render();
-  }, 500);
-}
-function startTimer(){
-  if(state.running) return;
-  state.sessionPhase='active';
-  state.running=true;
-  const now = Date.now();
-  if(!state.sessionStartedAt) state.sessionStartedAt = now;
-  state.timerStartedAt = now;
-  state.timerEndsAt = now + (state.timer * 1000);
-  requestWakeLock();
-  startHeartbeat();
-  render();
-}
-function pauseTimer(finished=false){
-  refreshTimerFromClock();
-  state.running=false;
-  clearInterval(state.timerId);
-  state.timerId=null;
-  state.timerStartedAt=null;
-  state.timerEndsAt=null;
-  releaseWakeLock();
-  if(finished){ state.timer = 0; beep(); vibrate(); }
-  render();
-}
-function resetSession(){
-  pauseTimer();
-  state.sessionPhase='setup';
-  state.timer=state.durationMin*60;
-  state.currentExercise='cp';
-  state.currentSide=state.startSide;
-  state.setCount=0;
-  state.squatSets=0;
-  state.pressSets=0;
-  state.ladderIndex=0;
-  state.sessionStartedAt=null;
-  state.notes='';
-  render();
-}
-function finishAndSave(testResult=''){
-  const p=getPrescription();
-  refreshTimerFromClock();
-  const duration = state.sessionStartedAt ? Math.round((Date.now()-state.sessionStartedAt)/60000) : Math.round((state.durationMin*60-state.timer)/60);
-  state.log.unshift({
-    date:todayISO(),
-    week:state.week,
-    day:state.day,
-    prescription:p.prescription,
-    kbMode:state.kbMode,
-    usedWeight:state.usedWeight,
-    durationTarget:state.durationMin,
-    startSide:state.kbMode==='single' ? state.startSide : '',
-    setCount:state.setCount,
-    pressSets:state.pressSets,
-    squatSets:state.squatSets,
-    duration:duration,
-    notes:state.notes,
-    testResult:testResult || ''
-  });
-  save();
-  state.tab='log';
-  resetSession();
-}
-function deleteLog(i){ if(confirm('Eliminare questa sessione?')){ state.log.splice(i,1); save(); render(); } }
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.className = "nav-item flex flex-col items-center justify-center text-on-surface-variant opacity-70 transition-all duration-100 active:scale-95";
+            });
+            const active = document.getElementById(`nav-${tabName}`);
+            active.className = "nav-item flex flex-col items-center justify-center text-primary-fixed-dim border-t-4 border-primary-fixed-dim pt-1 transition-all duration-100 active:scale-95";
 
-function homeView(){
-  const totalSessions=state.log.length;
-  const bestSets=state.log.reduce((m,x)=>Math.max(m,x.setCount||0),0);
-  const last=state.log[0];
-  return `
-    <div class="card" style="padding-top:26px;">
-      <div class="label" style="color:var(--accent)">DRY FIGHTING WEIGHT</div>
-      <h1 class="h1">DFW</h1>
-      <div class="sub" style="margin-top:10px;">App dedicata al programma fedele del link: 5 settimane, 3 giorni a settimana, 20, 25 o 30 minuti, alternanza tra <b>Clean & Press</b> e <b>Front Squat</b>, con supporto anche a <b>1 kettlebell</b>.</div>
-      <div class="chips" style="margin-top:14px;">
-        <div class="chip">5 settimane</div><div class="chip">3 giorni / settimana</div><div class="chip">20 / 25 / 30 min</div><div class="chip">1 o 2 kettlebell</div>
-      </div>
-      <div class="grid2" style="margin-top:14px;">
-        <button class="btn primary" onclick="state.tab='session';render()">▶ Avvia sessione</button>
-        <button class="btn dark" onclick="state.tab='program';render()">📅 Vedi piano</button>
-      </div>
-    </div>
+            if(tabName === 'Home') renderHome();
+            if(tabName === 'Piano') renderPiano();
+            if(tabName === 'Log') renderLog();
+        }
 
-    <div class="grid3" style="margin-top:14px;">
-      <div class="kpi"><div class="label">SESSIONI</div><div class="num">${totalSessions}</div></div>
-      <div class="kpi"><div class="label">BEST SETS</div><div class="num">${bestSets||0}</div></div>
-      <div class="kpi"><div class="label">ULTIMA</div><div class="num" style="font-size:26px">${last?`W${last.week}D${last.day}`:'—'}</div></div>
-    </div>
+        // --- HOME LOGIC ---
+        function renderHome() {
+            const stats = state.log.reduce((acc, l) => {
+                acc.sessions++;
+                acc.totalSets += l.sets.length;
+                const maxSet = Math.max(...l.sets, 0);
+                if(maxSet > acc.bestSet) acc.bestSet = maxSet;
+                return acc;
+            }, {sessions: 0, totalSets: 0, bestSet: 0});
 
-    <div class="card">
-      <div class="label">COME SI ESEGUE</div>
-      <table class="table">
-        <tr><td>1</td><td>Avvia timer da 30 minuti</td></tr>
-        <tr><td>2</td><td>Fai un set di Clean & Press${state.kbMode==='single'?' sul lato indicato':''}</td></tr>
-        <tr><td>3</td><td>Recupera quanto basta per restare fresco</td></tr>
-        <tr><td>4</td><td>Fai un set di Front Squat${state.kbMode==='single'?' sullo stesso lato':''}</td></tr>
-        <tr><td>5</td><td>Alterna fino allo scadere${state.kbMode==='single'?' e poi cambia lato automaticamente':''}</td></tr>
-        <tr><td>6</td><td>Registra set totali completati</td></tr>
-      </table>
-    </div>
+            document.getElementById('stat-sessions').innerText = stats.sessions;
+            document.getElementById('stat-best').innerText = stats.bestSet;
+            const lastLog = state.log[state.log.length - 1];
+            document.getElementById('stat-last').innerText = lastLog ? lastLog.sets.reduce((a,b)=>a+b, 0) : 0;
+        }
 
-    <div class="warning">
-      <b>Regola chiave:</b> non andare mai a cedimento. Se la velocità cala, riposa. L’obiettivo è accumulare <b>set di qualità</b>, non distruggerti.
-    </div>
-  `;
-}
+        // --- PIANO LOGIC ---
+        function renderPiano() {
+            const container = document.getElementById('piano-container');
+            container.innerHTML = '';
+            for(let w=1; w<=5; w++) {
+                const weekRow = document.createElement('div');
+                weekRow.className = "bg-surface-container sharp-border p-sm";
+                weekRow.innerHTML = `<h4 class="font-label-lg text-label-lg text-outline mb-xs uppercase">WEEK ${w}</h4>`;
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-3 gap-xs";
+                for(let d=1; d<=3; d++) {
+                    const scheme = PROGRAM[w][d].join('-');
+                    grid.innerHTML += `
+                        <div class="bg-surface-variant p-xs text-center border border-outline-variant">
+                            <span class="block text-[10px] uppercase text-outline">Day ${d}</span>
+                            <span class="block font-label-sm text-on-surface">${scheme}</span>
+                        </div>
+                    `;
+                }
+                weekRow.appendChild(grid);
+                container.appendChild(weekRow);
+            }
+        }
 
-function programView(){
-  return `
-    <div class="card">
-      <div class="label">PIANO COMPLETO</div>
-      <h2 class="h2">5 settimane</h2>
-      <div class="sub" style="margin-top:8px;">Selezione peso consigliata: coppia con cui hai circa un <b>5RM di press</b>. Se hai campane leggere, tieni l’app fedele ma usa il log per monitorare volume e qualità.</div>
-    </div>
-    <div class="card">
-      ${Object.entries(PROGRAM).map(([week,days])=>`
-        <div class="week-row">
-          <div class="week-name">WEEK ${week}</div>
-          <div class="week-days">${days.map(d=>`<div class="day-pill"><b>${d.label}</b><br>${d.prescription}</div>`).join('')}</div>
-        </div>
-      `).join('')}
-    </div>
-    <div class="success">
-      <b>Variazioni dal link:</b><br>
-      Week 4 Day 1 = ladder 1-2-3-4-(5).<br>
-      Week 4 Day 3 = alterna 3 e 4.<br>
-      Week 5 Day 1 = 3×3 leggero, Day 2 = test nuovo rep max.
-    </div>
-  `;
-}
+        // --- SESSION LOGIC ---
+        function initSession() {
+            const week = parseInt(document.getElementById('setup-week').value);
+            const day = parseInt(document.getElementById('setup-day').value);
+            const duration = parseInt(document.getElementById('setup-duration').value);
+            const weight = parseFloat(document.getElementById('setup-weight').value) || 0;
+            const mode = parseInt(document.getElementById('setup-mode').value);
 
-function sessionView(){
-  const p=getPrescription();
-  const exerciseName = state.currentExercise==='cp' ? 'Clean & Press' : 'Front Squat';
-  const nextRep = getNextRep();
-  const repText = p.mode==='test'
-    ? 'Test libero — trova nuovo rep max mantenendo tecnica pulita'
-    : `${nextRep} rep${nextRep===1?'':'s'}`;
-  const sideText = state.kbMode==='single' ? ` · Lato ${sideLabel(state.currentSide)}` : '';
-  const singleSideBlock = state.kbMode==='single' ? `
-      <div style="margin-top:12px;">
-        <div class="mini" style="margin-bottom:6px">Lato iniziale</div>
-        <div class="selector">
-          <div class="sel ${state.startSide==='dx'?'active':''}" onclick="state.startSide='dx';state.currentSide='dx';render()">DX</div>
-          <div class="sel ${state.startSide==='sx'?'active':''}" onclick="state.startSide='sx';state.currentSide='sx';render()">SX</div>
-        </div>
-        <div class="note" style="margin-top:8px;">Con 1 kettlebell l'app alterna automaticamente il lato dopo ogni coppia <b>Clean & Press + Front Squat</b>.</div>
-      </div>
-  ` : '';
+            state.session = {
+                week, day, duration, mode, weight,
+                sets: [],
+                remaining: duration * 60,
+                totalSec: duration * 60,
+                isActive: false,
+                currentEx: 'CLEAN & PRESS'
+            };
 
-  const saveBtn = p.mode==='test'
-    ? `<button class="btn gold" onclick="const r=prompt('Nuovo rep max trovato?'); if(r!==null) finishAndSave('Rep max: '+r)">🏁 Salva test</button>`
-    : `<button class="btn gold" onclick="finishAndSave()">💾 Salva sessione</button>`;
+            document.getElementById('session-setup').classList.add('hidden');
+            document.getElementById('session-runner').classList.remove('hidden');
+            updateRunnerUI();
+            requestWakeLock();
+        }
 
-  const setupCard = `
-    <div class="card">
-      <div class="label">CONFIGURAZIONE SESSIONE</div>
-      <div class="grid2">
-        <div>
-          <div class="mini" style="margin-bottom:6px">Settimana</div>
-          <div class="selector">
-            ${[1,2,3,4,5].map(w=>`<div class="sel ${state.week===w?'active':''}" onclick="state.week=${w};state.day=1;resetSession();state.tab='session';render()">W${w}</div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div class="mini" style="margin-bottom:6px">Giorno</div>
-          <div class="selector">
-            ${PROGRAM[state.week].map(d=>`<div class="sel ${state.day===d.day?'active':''}" onclick="state.day=${d.day};resetSession();state.tab='session';render()">D${d.day}</div>`).join('')}
-          </div>
-        </div>
-      </div>
+        function updateRunnerUI() {
+            const s = state.session;
+            const mins = Math.floor(s.remaining / 60);
+            const secs = s.remaining % 60;
+            document.getElementById('display-timer').innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+            document.getElementById('display-sets').innerText = `Set ${s.sets.length}`;
+            
+            const nextReps = getNextRep();
+            document.getElementById('ex-reps').innerText = `${nextReps} REPS`;
+            
+            const totalReps = s.sets.reduce((a, b) => a + b, 0);
+            document.getElementById('run-total-reps').innerText = totalReps;
+            document.getElementById('run-volume').innerText = `${totalReps * s.weight * s.mode}kg`;
 
-      <div class="grid2" style="margin-top:12px;">
-        <div>
-          <div class="mini" style="margin-bottom:6px">Durata sessione</div>
-          <div class="selector">
-            ${[20,25,30].map(m=>`<div class="sel ${state.durationMin===m?'active':''}" onclick="state.durationMin=${m};resetSession();render()">${m} min</div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div class="mini" style="margin-bottom:6px">Modalità KB</div>
-          <div class="selector">
-            <div class="sel ${state.kbMode==='double'?'active':''}" onclick="state.kbMode='double';render()">2 KB</div>
-            <div class="sel ${state.kbMode==='single'?'active':''}" onclick="state.kbMode='single';render()">1 KB</div>
-          </div>
-        </div>
-      </div>
+            // Circle dash
+            const ring = document.getElementById('timer-ring');
+            const offset = 452.4 * (1 - s.remaining / s.totalSec);
+            ring.style.strokeDashoffset = offset;
 
-      <div class="grid2" style="margin-top:12px;">
-        <div>
-          <div class="mini" style="margin-bottom:6px">Peso usato</div>
-          <input class="input" value="${state.usedWeight}" oninput="state.usedWeight=this.value" placeholder="16" />
-        </div>
-        <div>
-          <div class="mini" style="margin-bottom:6px">Riferimento carico</div>
-          <input class="input" value="${state.pressRM}" oninput="state.pressRM=this.value" placeholder="es. 16 kg singolo / 5RM pair" />
-        </div>
-      </div>
+            if(s.remaining <= 0) {
+                document.getElementById('btn-next').disabled = true;
+                document.getElementById('btn-next').classList.add('opacity-50');
+                beep(3);
+            }
+        }
 
-      ${singleSideBlock}
-    </div>
-  `;
+        function getNextRep() {
+            const scheme = PROGRAM[state.session.week][state.session.day];
+            return scheme[state.session.sets.length % scheme.length];
+        }
 
-  const preStartCard = `
-    <div class="card" style="text-align:center;">
-      <div class="label">AVVIO SESSIONE</div>
-      <div class="badge" style="background:#1A1200;color:#F8D67A">${p.label} · ${p.prescription}</div>
-      <div class="ring-wrap">${ring(state.durationMin*60, state.timer, p.mode==='test' ? '#FFC107' : '#FF5722')}</div>
-      <div class="sub" style="margin-top:6px;">Quando sei pronto, premi <b>Start sessione</b>. Entrerai nel runner con timer attivo e pulsante per avanzare i set.</div>
-      <div class="chips" style="margin-top:14px;justify-content:center;">
-        <div class="chip">Peso ${state.usedWeight || '—'} kg</div>
-        <div class="chip">${state.kbMode==='double'?'2 KB':'1 KB'}</div>
-        ${state.kbMode==='single' ? `<div class="chip">Partenza ${sideLabel(state.startSide)}</div>` : ''}
-      </div>
-      <div class="grid2" style="margin-top:14px;">
-        <button class="btn primary" onclick="startTimer()">▶ Start sessione</button>
-        <button class="btn dark" onclick="resetSession()">↺ Reset</button>
-      </div>
-      <div class="wake-status">L'app prova a tenere lo schermo acceso. Se il telefono lo blocca comunque, il timer continua in base all'orario reale.</div>
-    </div>
-  `;
+        function nextSet() {
+            if(!state.session.isActive) startTimer();
+            const reps = getNextRep();
+            state.session.sets.push(reps);
+            vibrate(50);
+            updateRunnerUI();
+        }
 
-  const activeRunner = `
-    <div class="card" style="text-align:center;">
-      <div class="label">SESSION RUNNER</div>
-      <div class="badge" style="background:#1A1200;color:#F8D67A">${p.label} · ${p.prescription}</div>
-      <div class="ring-wrap">${ring(state.durationMin*60, state.timer, p.mode==='test' ? '#FFC107' : '#FF5722')}</div>
-      <div class="grid2">
-        <button class="btn ${state.running?'red':'primary'}" onclick="${state.running?'pauseTimer()':'startTimer()'}">${state.running?'⏸ Pausa':'▶ Riprendi'}</button>
-        <button class="btn dark" onclick="resetSession()">↺ Reset</button>
-      </div>
-      <div class="wake-status">${state.wakeLockEnabled ? '🔓 Schermo tenuto attivo' : '🌙 Timer protetto anche se lo schermo si spegne'}</div>
-    </div>
+        function undoSet() {
+            if(state.session.sets.length > 0) {
+                state.session.sets.pop();
+                updateRunnerUI();
+            }
+        }
 
-    <div class="exercise-card">
-      <div class="exercise-top">
-        <div>
-          <div class="label">PROSSIMO SET</div>
-          <div class="exercise-name">${exerciseName}${sideText}</div>
-          <div class="prescription">${repText}</div>
-          <div class="exercise-meta" style="margin-top:8px;">Alterna sempre i 2 esercizi. Recupero libero, ma resta fresco.</div>
-        </div>
-        <div style="text-align:right;min-width:78px;">
-          <div class="label">TOTAL SETS</div>
-          <div class="h2" style="color:var(--accent)">${state.setCount}</div>
-        </div>
-      </div>
+        function startTimer() {
+            state.session.isActive = true;
+            state.session.timerId = setInterval(() => {
+                if(state.session.remaining > 0) {
+                    state.session.remaining--;
+                    updateRunnerUI();
+                } else {
+                    clearInterval(state.session.timerId);
+                    state.session.isActive = false;
+                }
+            }, 1000);
+        }
 
-      <div class="controls">
-        <button class="btn green" onclick="nextSet()">✓ Avanza set</button>
-        <button class="btn dark" onclick="undoSet()">← Annulla</button>
-      </div>
+        function resetSession() {
+            if(confirm("Discard session?")) {
+                clearInterval(state.session.timerId);
+                state.session = null;
+                releaseWakeLock();
+                document.getElementById('session-setup').classList.remove('hidden');
+                document.getElementById('session-runner').classList.add('hidden');
+            }
+        }
 
-      <div class="controls3">
-        <div class="kpi"><div class="label">C&P SETS</div><div class="num" style="font-size:28px;color:var(--accent)">${state.pressSets}</div></div>
-        <div class="kpi"><div class="label">FS SETS</div><div class="num" style="font-size:28px;color:var(--green)">${state.squatSets}</div></div>
-        <div class="kpi"><div class="label">LADDER</div><div class="num" style="font-size:28px;color:var(--gold)">${p.mode==='fixed'||p.mode==='test'?'—':state.ladderIndex+1}</div></div>
-      </div>
+        function finishAndSave() {
+            const s = state.session;
+            const logEntry = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString('it-IT'),
+                scheme: PROGRAM[s.week][s.day].join('-'),
+                sets: [...s.sets],
+                duration: s.duration,
+                weight: s.weight,
+                notes: document.getElementById('session-notes').value
+            };
+            state.log.push(logEntry);
+            localStorage.setItem('dfw-log-v2', JSON.stringify(state.log));
+            
+            clearInterval(s.timerId);
+            state.session = null;
+            releaseWakeLock();
+            
+            // sessione salvata
+            switchTab('Log');
+            document.getElementById('session-setup').classList.remove('hidden');
+            document.getElementById('session-runner').classList.add('hidden');
+        }
 
-      <div class="chips" style="margin-top:12px;">
-        <div class="chip">Durata target ${state.durationMin} min</div>
-        <div class="chip">Peso ${state.usedWeight || '—'} kg</div>
-        <div class="chip">${state.kbMode==='double'?'2 KB':'1 KB'}</div>
-        ${state.kbMode==='single' ? `<div class="chip">Lato attuale ${sideLabel(state.currentSide)}</div>` : ''}
-      </div>
-    </div>
-  `;
+        // --- LOG LOGIC ---
+        function renderLog() {
+            const list = document.getElementById('log-list');
+            list.innerHTML = '';
+            [...state.log].reverse().forEach(entry => {
+                const totalReps = entry.sets.reduce((a,b)=>a+b, 0);
+                const item = document.createElement('div');
+                item.className = "bg-surface-container sharp-border p-sm flex justify-between items-center";
+                item.innerHTML = `
+                    <div class="flex-1">
+                        <div class="flex gap-xs items-center">
+                            <span class="text-label-sm font-label-sm text-primary-fixed-dim uppercase">${entry.date}</span>
+                            <span class="text-[10px] bg-surface-variant px-1 border border-outline-variant text-outline uppercase">${entry.scheme}</span>
+                        </div>
+                        <div class="flex gap-md mt-1">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-outline uppercase">Sets</span>
+                                <span class="font-title-md text-on-surface">${entry.sets.length}</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-outline uppercase">Reps</span>
+                                <span class="font-title-md text-on-surface">${totalReps}</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-outline uppercase">Weight</span>
+                                <span class="font-title-md text-on-surface">${entry.weight}kg</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="deleteLog(${entry.id})" class="text-on-surface-variant hover:text-error transition-colors">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                `;
+                list.appendChild(item);
+            });
+        }
 
-  return `
-    ${setupCard}
-    ${state.sessionPhase==='setup' ? preStartCard : activeRunner}
+        function deleteLog(id) {
+            if(confirm("Eliminare questa sessione?")) {
+                state.log = state.log.filter(l => l.id !== id);
+                localStorage.setItem('dfw-log-v2', JSON.stringify(state.log));
+                renderLog();
+            }
+        }
 
-    <div class="card">
-      <div class="label">NOTE SESSIONE</div>
-      <input class="input" placeholder="Fast & Loose, sensazioni, carico reale, note tecniche..." value="${state.notes}" oninput="state.notes=this.value" />
-      <div class="grid2" style="margin-top:12px;">
-        ${saveBtn}
-        <button class="btn dark" onclick="state.tab='log';render()">📊 Vai al log</button>
-      </div>
-    </div>
-  `;
-}
+        function clearAllLogs() {
+            if(confirm("PURGE ALL DATA? This cannot be undone.")) {
+                state.log = [];
+                localStorage.setItem('dfw-log-v2', '[]');
+                renderLog();
+            }
+        }
 
-function logView(){
-  const rows=state.log.map((x,i)=>`
-    <tr>
-      <td><b>${x.date}</b><br><span style="color:var(--muted)">W${x.week} · D${x.day}</span></td>
-      <td>${x.prescription}<br><span style="color:var(--muted)">${x.kbMode==='double'?'2 KB':'1 KB'}${x.usedWeight?` · ${x.usedWeight} kg`:''}${x.startSide?` · start ${x.startSide.toUpperCase()}`:''}</span></td>
-      <td><b>${x.setCount}</b><br><span style="color:var(--muted)">C&P ${x.pressSets} · FS ${x.squatSets}</span></td>
-      <td>${x.duration||x.durationTarget||30} min${x.durationTarget?`<br><span style="color:var(--muted)">target ${x.durationTarget}'</span>`:''}${x.testResult?`<br><span style="color:var(--gold)">${x.testResult}</span>`:''}</td>
-      <td style="text-align:right"><button class="smallbtn" onclick="deleteLog(${i})">Elimina</button></td>
-    </tr>
-    ${x.notes?`<tr><td colspan="5" style="padding-top:0;color:var(--muted);font-style:italic">“${x.notes}”</td></tr>`:''}
-  `).join('');
-  return `
-    <div class="card">
-      <div class="label">STORICO</div>
-      <h2 class="h2">Log DFW</h2>
-      <div class="sub" style="margin-top:8px;">Registra i set totali e confronta settimana dopo settimana. Il target è migliorare la qualità e il numero di set, senza perdere freschezza.</div>
-    </div>
-    <div class="card">
-      ${state.log.length ? `<table class="table"><thead><tr><th>Data</th><th>Schema</th><th>Set</th><th>Durata</th><th></th></tr></thead><tbody>${rows}</tbody></table>` : `<div class="empty">Nessuna sessione salvata.</div>`}
-    </div>
-  `;
-}
+        // --- UTILS ---
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    state.wakeLock = await navigator.wakeLock.request('screen');
+                }
+            } catch (err) { console.error(`${err.name}, ${err.message}`); }
+        }
 
-document.addEventListener('visibilitychange', async () => {
-  if(document.visibilityState === 'visible' && state.running){
-    refreshTimerFromClock();
-    await requestWakeLock();
-    startHeartbeat();
-    render();
-  }
-});
-window.addEventListener('pageshow', () => {
-  if(state.running){
-    refreshTimerFromClock();
-    startHeartbeat();
-    render();
-  }
-});
+        function releaseWakeLock() {
+            if (state.wakeLock !== null) {
+                state.wakeLock.release();
+                state.wakeLock = null;
+            }
+        }
 
+        function vibrate(ms) {
+            if (navigator.vibrate) navigator.vibrate(ms);
+        }
 
-function beep(){
-  try{
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(880, ctx.currentTime);
-    gain.gain.setValueAtTime(0.2, ctx.currentTime);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    setTimeout(()=>{osc.stop();ctx.close();},300);
-  }catch(e){}
-}
+        function beep(times = 1) {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            let count = 0;
+            const interval = setInterval(() => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.1);
+                count++;
+                if(count >= times) clearInterval(interval);
+            }, 200);
+        }
 
-function vibrate(){
-  if(navigator.vibrate){
-    navigator.vibrate([200,100,200]);
-  }
-}
-
-function render(){
-  let content='';
-  if(state.tab==='home') content=homeView();
-  if(state.tab==='program') content=programView();
-  if(state.tab==='session') content=sessionView();
-  if(state.tab==='log') content=logView();
-  document.getElementById('app').innerHTML = content + `
-    <div class="bottom-nav">
-      <button class="navbtn ${state.tab==='home'?'active':''}" onclick="state.tab='home';render()">🏠<span>Home</span></button>
-      <button class="navbtn ${state.tab==='program'?'active':''}" onclick="state.tab='program';render()">📅<span>Piano</span></button>
-      <button class="navbtn ${state.tab==='session'?'active':''}" onclick="state.tab='session';render()">💪<span>Sessione</span></button>
-      <button class="navbtn ${state.tab==='log'?'active':''}" onclick="state.tab='log';render()">📊<span>Log</span></button>
-    </div>`;
-}
-resetSession();
-</script>
-</body>
-</html>
+        // Init App
+        window.onload = () => {
+            switchTab('Home');
+        };
+    </script>
+</body></html>

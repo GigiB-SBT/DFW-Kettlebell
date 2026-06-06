@@ -2,7 +2,7 @@
   "name": "DFW — Dry Fighting Weight",
   "short_name": "DFW",
   "description": "Pavel Tsatsouline Dry Fighting Weight Program",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#181210",
   "theme_color": "#181210",

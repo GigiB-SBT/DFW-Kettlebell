@@ -5,8 +5,6 @@
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
 <meta content="yes" name="mobile-web-app-capable"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="DFW"/>
 <title>DFW — Dry Fighting Weight</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
@@ -136,7 +134,13 @@
       min-height: max(884px, 100dvh);
     }
   </style>
-  </head>
+  <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkRGVyDigJQgRHJ5IEZpZ2h0aW5nIFdlaWdodCIsCiAgInNob3J0X25hbWUiOiAiREZXIiwKICAiZGVzY3JpcHRpb24iOiAiUGF2ZWwgVHNhdHNvdWxpbmUgRHJ5IEZpZ2h0aW5nIFdlaWdodCBQcm9ncmFtIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxODEyMTAiLAogICJ0aGVtZV9jb2xvciI6ICIjMTgxMjEwIiwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICJpY29ucyI6IFsKICAgIHsic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1Ua3lJaUJvWldsbmFIUTlJakU1TWlJZ2RtbGxkMEp2ZUQwaU1DQXdJREU1TWlBeE9USWlJSGh0Ykc1elBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHlNREF3TDNOMlp5SStDaUFnUEhKbFkzUWdkMmxrZEdnOUlqRTVNaUlnYUdWcFoyaDBQU0l4T1RJaUlHWnBiR3c5SWlNeE9ERXlNVEFpTHo0S0lDQThjbVZqZENCNFBTSTRJaUI1UFNJNElpQjNhV1IwYUQwaU1UYzJJaUJvWldsbmFIUTlJakUzTmlJZ1ptbHNiRDBpSXpCRE1Ea3dOeUl2UGdvZ0lEeHlaV04wSUhnOUlqSWlJSGs5SWpJaUlIZHBaSFJvUFNJeE9EZ2lJR2hsYVdkb2REMGlNVGc0SWlCbWFXeHNQU0p1YjI1bElpQnpkSEp2YTJVOUlpTm1abUkyT1RNaUlITjBjbTlyWlMxM2FXUjBhRDBpTXlJdlBnb2dJRHgwWlhoMElIZzlJakl5SWlCNVBTSXhNVGdpSUdadmJuUXRabUZ0YVd4NVBTSkNaV0poY3lCT1pYVmxMSE5oYm5NdGMyVnlhV1lpSUdadmJuUXRjMmw2WlQwaU1URXlJaUJtYVd4c1BTSWpabVppTmpreklqNUVQQzkwWlhoMFBnb2dJRHgwWlhoMElIZzlJakl5SWlCNVBTSXhOaklpSUdadmJuUXRabUZ0YVd4NVBTSkNaV0poY3lCT1pYVmxMSE5oYm5NdGMyVnlhV1lpSUdadmJuUXRjMmw2WlQwaU16Z2lJR1pwYkd3OUlpTm1abUkyT1RNaUlHeGxkSFJsY2kxemNHRmphVzVuUFNJeklqNUdWend2ZEdWNGRENEtJQ0E4Y21WamRDQjRQU0l5TWlJZ2VUMGlNVFk0SWlCM2FXUjBhRDBpTnpZaUlHaGxhV2RvZEQwaU1pSWdabWxzYkQwaUl6VXdaR0ZrTVNJdlBnbzhMM04yWno0PSIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9LAogICAgeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnZG1sbGQwSnZlRDBpTUNBd0lEVXhNaUExTVRJaUlIaHRiRzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM04yWnlJK0NpQWdQSEpsWTNRZ2QybGtkR2c5SWpVeE1pSWdhR1ZwWjJoMFBTSTFNVElpSUdacGJHdzlJaU14T0RFeU1UQWlMejRLSUNBOGNtVmpkQ0I0UFNJeU1DSWdlVDBpTWpBaUlIZHBaSFJvUFNJME56SWlJR2hsYVdkb2REMGlORGN5SWlCbWFXeHNQU0lqTUVNd09UQTNJaTgrQ2lBZ1BISmxZM1FnZUQwaU5DSWdlVDBpTkNJZ2QybGtkR2c5SWpVd05DSWdhR1ZwWjJoMFBTSTFNRFFpSUdacGJHdzlJbTV2Ym1VaUlITjBjbTlyWlQwaUkyWm1Zalk1TXlJZ2MzUnliMnRsTFhkcFpIUm9QU0k0SWk4K0NpQWdQQ0V0TFNCRUlDMHRQZ29nSUR4MFpYaDBJSGc5SWpZd0lpQjVQU0l6TWpBaUlHWnZiblF0Wm1GdGFXeDVQU0pDWldKaGN5Qk9aWFZsTEhOaGJuTXRjMlZ5YVdZaUlHWnZiblF0YzJsNlpUMGlNekF3SWlCbWFXeHNQU0lqWm1aaU5qa3pJajVFUEM5MFpYaDBQZ29nSUR3aExTMGdSbGNnY0dsalkyOXNieUF0TFQ0S0lDQThkR1Y0ZENCNFBTSTFPQ0lnZVQwaU5ETXdJaUJtYjI1MExXWmhiV2xzZVQwaVFtVmlZWE1nVG1WMVpTeHpZVzV6TFhObGNtbG1JaUJtYjI1MExYTnBlbVU5SWpFd01DSWdabWxzYkQwaUkyWm1Zalk1TXlJZ2JHVjBkR1Z5TFhOd1lXTnBibWM5SWpnaVBrWlhQQzkwWlhoMFBnb2dJRHdoTFMwZ2JHbHVaV0VnWVdOalpXNTBJQzB0UGdvZ0lEeHlaV04wSUhnOUlqVTRJaUI1UFNJME5EVWlJSGRwWkhSb1BTSXlNREFpSUdobGFXZG9kRDBpTkNJZ1ptbHNiRDBpSXpVd1pHRmtNU0l2UGdvOEwzTjJaejQ9IiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn0KICBdCn0="/>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiMxODEyMTAiLz4KICA8cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI0NzIiIGhlaWdodD0iNDcyIiBmaWxsPSIjMEMwOTA3Ii8+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjUwNCIgaGVpZ2h0PSI1MDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmYjY5MyIgc3Ryb2tlLXdpZHRoPSI4Ii8+CiAgPCEtLSBEIC0tPgogIDx0ZXh0IHg9IjYwIiB5PSIzMjAiIGZvbnQtZmFtaWx5PSJCZWJhcyBOZXVlLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzAwIiBmaWxsPSIjZmZiNjkzIj5EPC90ZXh0PgogIDwhLS0gRlcgcGljY29sbyAtLT4KICA8dGV4dCB4PSI1OCIgeT0iNDMwIiBmb250LWZhbWlseT0iQmViYXMgTmV1ZSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwMCIgZmlsbD0iI2ZmYjY5MyIgbGV0dGVyLXNwYWNpbmc9IjgiPkZXPC90ZXh0PgogIDwhLS0gbGluZWEgYWNjZW50IC0tPgogIDxyZWN0IHg9IjU4IiB5PSI0NDUiIHdpZHRoPSIyMDAiIGhlaWdodD0iNCIgZmlsbD0iIzUwZGFkMSIvPgo8L3N2Zz4="/>
+<meta name="theme-color" content="#181210"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="DFW"/>
+</head>
 <body class="pb-24">
 <!-- TOP BAR -->
 <header class="fixed top-0 w-full max-w-[480px] z-50 bg-background border-b-2 border-outline-variant flex justify-between items-center px-margin-mobile h-16">
@@ -225,6 +229,13 @@
 <label class="text-label-sm font-label-sm uppercase text-outline mb-1">Working Weight (kg)</label>
 <input class="bg-surface-container sharp-border p-sm font-body-md text-on-surface focus:border-primary-fixed-dim outline-none" id="setup-weight" placeholder="e.g. 24" type="number"/>
 </div>
+<div class="mb-sm">
+<label class="block text-outline text-[10px] uppercase tracking-widest mb-xs">LATO INIZIALE (solo 1 KB)</label>
+<select id="setup-side" class="w-full bg-surface-container border border-outline-variant text-on-surface p-sm font-label-lg">
+<option value="DX">DX — Destro</option>
+<option value="SX">SX — Sinistro</option>
+</select>
+</div>
 <button class="w-full bg-secondary text-on-secondary font-label-lg text-label-lg py-md btn-press uppercase" onclick="initSession()">LOCK &amp; LOAD</button>
 </div>
 <!-- RUNNER SUB-VIEW -->
@@ -245,13 +256,22 @@
 <span class="bg-primary-fixed-dim text-on-primary-fixed font-title-md text-title-md px-md py-xs" id="ex-reps">3 REPS</span>
 </div>
 </div>
+<!-- START / PAUSE -->
+<div class="w-full mb-sm">
+<button id="btn-startstop" onclick="toggleTimer()"
+  class="w-full py-md font-label-lg text-label-lg uppercase flex items-center justify-center gap-xs btn-press"
+  style="background:#ffb693;color:#181210">
+  <span class="material-symbols-outlined" id="icon-startstop">play_arrow</span>
+  <span id="label-startstop">START</span>
+</button>
+</div>
 <div class="grid grid-cols-2 gap-sm w-full mb-gutter">
 <button class="border-2 border-outline text-outline font-label-lg text-label-lg py-md btn-press uppercase flex items-center justify-center gap-xs" onclick="undoSet()">
 <span class="material-symbols-outlined">undo</span> ANNULLA
-                    </button>
+</button>
 <button class="bg-primary-fixed-dim text-on-primary-fixed font-label-lg text-label-lg py-md btn-press uppercase flex items-center justify-center gap-xs" id="btn-next" onclick="nextSet()">
 <span class="material-symbols-outlined">check_circle</span> AVANZA SET
-                    </button>
+</button>
 </div>
 <div class="w-full grid grid-cols-2 gap-sm mb-gutter">
 <div class="bg-surface-container sharp-border p-sm flex flex-col items-center">
@@ -381,13 +401,18 @@
             const weight = parseFloat(document.getElementById('setup-weight').value) || 0;
             const mode = parseInt(document.getElementById('setup-mode').value);
 
+            const startSide = document.getElementById('setup-side') ? 
+                document.getElementById('setup-side').value : 'DX';
             state.session = {
                 week, day, duration, mode, weight,
                 sets: [],
                 remaining: duration * 60,
                 totalSec: duration * 60,
                 isActive: false,
-                currentEx: 'CLEAN & PRESS'
+                currentEx: 'cp',   // 'cp' = Clean & Press, 'fs' = Front Squat
+                currentSide: startSide,
+                ladderIdx: 0,      // posizione nella ladder (0=primo step)
+                ladderRound: 0,    // quante ladder complete su questo lato
             };
 
             document.getElementById('session-setup').classList.add('hidden');
@@ -403,8 +428,15 @@
             document.getElementById('display-timer').innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
             document.getElementById('display-sets').innerText = `Set ${s.sets.length}`;
             
-            const nextReps = getNextRep();
-            document.getElementById('ex-reps').innerText = `${nextReps} REPS`;
+            const s2 = state.session;
+            const scheme2 = PROGRAM[s2.week][s2.day];
+            const curReps = scheme2[s2.ladderIdx % scheme2.length];
+            const exName = s2.currentEx === 'cp' ? 'CLEAN & PRESS' : 'FRONT SQUAT';
+            const sideText = s2.mode === 1 ? ' · ' + s2.currentSide : '';
+            const ladderText = scheme2.length > 1 ? 
+                ' (' + (s2.ladderIdx+1) + '/' + scheme2.length + ')' : '';
+            document.getElementById('ex-name').innerText = exName + sideText;
+            document.getElementById('ex-reps').innerText = curReps + ' REPS' + ladderText;
             
             const totalReps = s.sets.reduce((a, b) => a + b, 0);
             document.getElementById('run-total-reps').innerText = totalReps;
@@ -423,26 +455,68 @@
         }
 
         function getNextRep() {
-            const scheme = PROGRAM[state.session.week][state.session.day];
-            return scheme[state.session.sets.length % scheme.length];
+            const s = state.session;
+            const scheme = PROGRAM[s.week][s.day];
+            return scheme[s.ladderIdx % scheme.length];
         }
 
         function nextSet() {
-            if(!state.session.isActive) startTimer();
-            const reps = getNextRep();
-            state.session.sets.push(reps);
+            const s = state.session;
+            const scheme = PROGRAM[s.week][s.day];
+            const reps = scheme[s.ladderIdx % scheme.length];
+
+            s.sets.push(reps);
             vibrate(50);
+
+            if(s.currentEx === 'cp') {
+                // Fatto C&P → passa a FS (stesso lato, stessa reps)
+                s.currentEx = 'fs';
+            } else {
+                // Fatto FS → avanza posizione nella ladder
+                s.currentEx = 'cp';
+                s.ladderIdx++;
+
+                // Se abbiamo completato tutta la ladder su questo lato
+                if(s.ladderIdx >= scheme.length) {
+                    s.ladderIdx = 0;
+                    s.ladderRound++;
+                    // Con 1 KB: cambia lato dopo ladder completa
+                    if(s.mode === 1) {
+                        s.currentSide = s.currentSide === 'DX' ? 'SX' : 'DX';
+                    }
+                }
+            }
             updateRunnerUI();
         }
 
         function undoSet() {
-            if(state.session.sets.length > 0) {
-                state.session.sets.pop();
-                updateRunnerUI();
+            const s = state.session;
+            if(s.sets.length === 0) return;
+            s.sets.pop();
+
+            if(s.currentEx === 'fs') {
+                // Annulla C&P appena fatto
+                s.currentEx = 'cp';
+            } else {
+                // Annulla FS: torna indietro nella ladder
+                s.currentEx = 'fs';
+                if(s.ladderIdx === 0) {
+                    // Stavamo ricominciando una nuova ladder
+                    const scheme = PROGRAM[s.week][s.day];
+                    s.ladderIdx = scheme.length - 1;
+                    s.ladderRound = Math.max(0, s.ladderRound - 1);
+                    if(s.mode === 1) {
+                        s.currentSide = s.currentSide === 'DX' ? 'SX' : 'DX';
+                    }
+                } else {
+                    s.ladderIdx--;
+                }
             }
+            updateRunnerUI();
         }
 
         function startTimer() {
+            if(state.session.isActive) return;
             state.session.isActive = true;
             state.session.timerId = setInterval(() => {
                 if(state.session.remaining > 0) {
@@ -451,8 +525,46 @@
                 } else {
                     clearInterval(state.session.timerId);
                     state.session.isActive = false;
+                    updateStartStopBtn();
+                    beep(3);
+                    if(navigator.vibrate) navigator.vibrate([300,100,300,100,500]);
                 }
             }, 1000);
+            updateStartStopBtn();
+        }
+
+        function pauseTimer() {
+            if(!state.session.isActive) return;
+            state.session.isActive = false;
+            clearInterval(state.session.timerId);
+            state.session.timerId = null;
+            updateStartStopBtn();
+        }
+
+        function toggleTimer() {
+            if(!state.session) return;
+            if(state.session.isActive) pauseTimer();
+            else startTimer();
+        }
+
+        function updateStartStopBtn() {
+            var btn = document.getElementById('btn-startstop');
+            var icon = document.getElementById('icon-startstop');
+            var lbl = document.getElementById('label-startstop');
+            if(!btn) return;
+            if(state.session && state.session.isActive) {
+                btn.style.background = '#3a3330';
+                btn.style.color = '#ffb693';
+                btn.style.border = '2px solid #ffb693';
+                if(icon) icon.textContent = 'pause';
+                if(lbl) lbl.textContent = 'PAUSA';
+            } else {
+                btn.style.background = '#ffb693';
+                btn.style.color = '#181210';
+                btn.style.border = 'none';
+                if(icon) icon.textContent = 'play_arrow';
+                if(lbl) lbl.textContent = 'START';
+            }
         }
 
         function resetSession() {
@@ -585,4 +697,11 @@
             switchTab('Home');
         };
     </script>
+<script>
+if('serviceWorker' in navigator){
+  var swBlob = new Blob([atob('CmNvbnN0IENBQ0hFPSdkZnctdjEnOwpjb25zdCBVUkxTPVsnLyddOwpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2luc3RhbGwnLGU9PmUud2FpdFVudGlsKGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMuYWRkQWxsKFVSTFMpKSkpOwpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJyxlPT5lLnJlc3BvbmRXaXRoKGNhY2hlcy5tYXRjaChlLnJlcXVlc3QpLnRoZW4ocj0+cnx8ZmV0Y2goZS5yZXF1ZXN0KSkpKTsKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsZT0+ZS53YWl0VW50aWwoY2FjaGVzLmtleXMoKS50aGVuKGtzPT5Qcm9taXNlLmFsbChrcy5maWx0ZXIoaz0+ayE9PUNBQ0hFKS5tYXAoaz0+Y2FjaGVzLmRlbGV0ZShrKSkpKSkpOwo=')], {type:'text/javascript'});
+  var swURL = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swURL).catch(function(){});
+}
+</script>
 </body></html>

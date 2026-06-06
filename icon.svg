@@ -1,0 +1,7 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#181210"/>
+  <rect x="4" y="4" width="504" height="504" fill="none" stroke="#ffb693" stroke-width="8"/>
+  <text x="60" y="330" font-family="Bebas Neue,sans-serif" font-size="310" fill="#ffb693">D</text>
+  <text x="60" y="440" font-family="Bebas Neue,sans-serif" font-size="110" fill="#ffb693" letter-spacing="10">FW</text>
+  <rect x="60" y="452" width="210" height="5" fill="#50dad1"/>
+</svg>
